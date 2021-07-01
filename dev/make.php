@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Major\PluralRules;
 
+use Exception;
+
 require __DIR__.'/../vendor/autoload.php';
 
 // Register nicer error handler
