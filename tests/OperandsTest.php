@@ -1,6 +1,6 @@
 <?php
 
-use function Major\PluralRules\Operands\{n, i, v, w, f, t};
+use function Major\PluralRules\Operands\{f, i, n, t, v, w};
 
 it('can compute operands', function ($source, $n, $i, $v, $w, $f, $t) {
     expect(n($source))->toBe($n);

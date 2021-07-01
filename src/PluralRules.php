@@ -16,6 +16,8 @@ final class PluralRules
     /** @var array<string, array<string, Closure>> */
     protected static array $rules = [];
 
+    protected function __construct() { }
+
     public static function select(string $locale, int|float|string $number): string
     {
         foreach (self::rulesFor($locale) as $category => $rule) {
@@ -26,8 +28,6 @@ final class PluralRules
 
         return 'other';
     }
-
-    protected function __construct() { }
 
     /**
      * @return array<string, Closure>
