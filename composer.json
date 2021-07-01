@@ -1,0 +1,39 @@
+{
+    "name": "jrmajor/pluralrules",
+    "description": "CLDR plural rules",
+    "keywords": [
+        "cldr",
+        "localization"
+    ],
+    "homepage": "https://github.com/jrmajor/pluralrules",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremiasz Major",
+            "email": "jrh.mjr@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-intl": "*"
+    },
+    "require-dev": {
+        "hoa/compiler": "~3.17",
+        "nunomaduro/collision": "^5.5",
+        "symfony/var-dumper": "^5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Major\\PluralRules\\": "src"
+        },
+        "files": ["src/operands.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Major\\PluralRules\\": "dev",
+            "Major\\PluralRules\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
