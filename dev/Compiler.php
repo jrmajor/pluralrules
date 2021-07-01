@@ -51,7 +51,7 @@ final class Compiler
             }
 
             if (str_contains($rule, '@')) {
-                $rule = strstr($rule, '@', true);
+                $rule = strstr($rule, '@', true) ?: throw new Exception();
             }
 
             $asts[$category] = $this->llk->parse($rule);

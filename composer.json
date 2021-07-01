@@ -21,6 +21,7 @@
         "hoa/compiler": "~3.17",
         "nunomaduro/collision": "^5.5",
         "pestphp/pest": "^1.8",
+        "phpstan/phpstan": "^0.12.90",
         "symfony/var-dumper": "^5.3"
     },
     "autoload": {

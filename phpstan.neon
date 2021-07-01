@@ -1,0 +1,8 @@
+parameters:
+    level: max
+    paths:
+        - dev
+        - src
+        - src
+    ignoreErrors:
+        - '#^Match expression does not handle remaining value: #'
