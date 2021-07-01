@@ -32,6 +32,10 @@ final class RuleCompiler
     protected function makeLocales(array $locales): void
     {
         foreach ($locales as $locale => $rules) {
+            if ($locale === 'root') {
+                continue;
+            }
+
             $this->makeLocale($locale, $rules);
         }
     }
