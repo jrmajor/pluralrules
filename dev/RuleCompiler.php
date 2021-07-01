@@ -7,7 +7,7 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 
-final class Compiler
+final class RuleCompiler
 {
     protected Parser $llk;
 

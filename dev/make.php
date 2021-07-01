@@ -33,4 +33,4 @@ $locales = json_decode(
     associative: true,
 )['supplemental']['plurals-type-cardinal'];
 
-Compiler::make($locales);
+RuleCompiler::make($locales);
