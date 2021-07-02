@@ -91,7 +91,6 @@ final class RuleCompiler
     protected function compileImports(array $rules): string
     {
         $operands = [];
-        $inRange = '';
 
         foreach ($rules as $rule) {
             foreach ($rule->getChildren() as $child) {
