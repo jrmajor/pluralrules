@@ -14,7 +14,7 @@ final class TestCompiler
     protected function __construct()
     {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__.'/SampleList.pp'),
+            new \Hoa\File\Read(__DIR__ . '/SampleList.pp'),
         );
     }
 
@@ -62,7 +62,7 @@ final class TestCompiler
         $locale = ucfirst($locale);
 
         file_put_contents(
-            __DIR__."/../tests/Locale/{$locale}Test.php",
+            __DIR__ . "/../tests/Locale/{$locale}Test.php",
             $this->compileTests(strtolower($locale), $asts),
         ) ?: throw new Exception("Failed to write {$locale}Test.php");
     }
@@ -86,14 +86,14 @@ final class TestCompiler
 
             $sampleList = implode("\n", $sampleList);
 
-            $compiled .= "\n".<<<PHP
+            $compiled .= "\n" . <<<PHP
                 test('{$category}', function (\$num) {
                     \$category = PluralRules::select('{$locale}', \$num);
                     expect(\$category)->toBe('{$category}');
                 })->with([
                 {$sampleList}
                 ]);
-                PHP."\n";
+                PHP . "\n";
         }
 
         return "{$compiled}";

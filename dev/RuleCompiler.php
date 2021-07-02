@@ -14,7 +14,7 @@ final class RuleCompiler
     protected function __construct()
     {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__.'/PluralRule.pp'),
+            new \Hoa\File\Read(__DIR__ . '/PluralRule.pp'),
         );
     }
 
@@ -62,7 +62,7 @@ final class RuleCompiler
         }
 
         file_put_contents(
-            __DIR__."/../rules/{$locale}.php",
+            __DIR__ . "/../rules/{$locale}.php",
             $this->compileRules($asts),
         ) ?: throw new Exception("Failed to write {$locale}.php");
     }
@@ -115,7 +115,7 @@ final class RuleCompiler
 
         return match (count($operands)) {
             1 => "use function Major\\PluralRules\\Operands\\{$operands[0]};",
-            default => 'use function Major\\PluralRules\\Operands\\{'.implode(', ', $operands).'};',
+            default => 'use function Major\\PluralRules\\Operands\\{' . implode(', ', $operands) . '};',
         };
     }
 
@@ -168,15 +168,15 @@ final class RuleCompiler
             $compiled = "in_range({$expression}, {$from}, {$to})";
         }
 
-        return ($negated ? '! (' : '(').$compiled.')';
+        return ($negated ? '! (' : '(') . $compiled . ')';
     }
 
     protected function compileExpression(TreeNode $expression): string
     {
-        $operand = $expression->getChild(0)->getValueValue().'($n)';
+        $operand = $expression->getChild(0)->getValueValue() . '($n)';
 
         return ! $expression->childExists(1)
             ? $operand
-            : $operand.' % '.$expression->getChild(1)->getValueValue();
+            : $operand . ' % ' . $expression->getChild(1)->getValueValue();
     }
 }

@@ -12,7 +12,7 @@ namespace Major\PluralRules;
 
 use Exception;
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 // Register nicer error handler
 (new \NunoMaduro\Collision\Provider())->register();
@@ -28,8 +28,8 @@ function da(\Hoa\Compiler\Llk\TreeNode $ast): void
 }
 
 $locales = json_decode(
-    file_get_contents(__DIR__.'/../data/plurals.json')
-        ?: throw new Exception(__DIR__.'/../plurals.json does not exist.'),
+    file_get_contents(__DIR__ . '/../data/plurals.json')
+        ?: throw new Exception(__DIR__ . '/../plurals.json does not exist.'),
     associative: true,
 )['supplemental']['plurals-type-cardinal'];
 
