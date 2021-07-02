@@ -168,7 +168,7 @@ final class RuleCompiler
             $from = $range->getChild(0)->getValueValue();
             $to = $range->getChild(1)->getValueValue();
 
-            $compiled = "in_range({$expression}, {$from}, {$to})";
+            $compiled .= "in_range({$expression}, {$from}, {$to})";
         }
 
         return ($negated ? '! (' : '(') . $compiled . ')';
