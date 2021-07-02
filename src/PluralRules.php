@@ -45,7 +45,7 @@ final class PluralRules
         }
 
         file_exists($filename = __DIR__ . "/../rules/{$locale}.php")
-            ?: throw new LocaleNotFound();
+            ?: throw new LocaleNotFound("Plural rules for locale [{$locale}] has not been found.");
 
         return self::$rules[$locale] = require $filename;
     }
