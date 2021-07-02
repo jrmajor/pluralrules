@@ -38,15 +38,19 @@ final class PluralRules
      */
     protected static function rulesFor(string $locale): array
     {
-        $locale = Locale::getPrimaryLanguage($locale);
+        $lang = Locale::getPrimaryLanguage($locale);
 
-        if (array_key_exists($locale, self::$rules)) {
-            return self::$rules[$locale];
+        if ($lang === 'pt' && Locale::getRegion($locale) === 'PT') {
+            $lang = 'pt-PT';
         }
 
-        file_exists($filename = __DIR__ . "/../rules/{$locale}.php")
-            ?: throw new LocaleNotFound("Plural rules for locale [{$locale}] has not been found.");
+        if (array_key_exists($lang, self::$rules)) {
+            return self::$rules[$lang];
+        }
 
-        return self::$rules[$locale] = require $filename;
+        file_exists($filename = __DIR__ . "/../rules/{$lang}.php")
+            ?: throw new LocaleNotFound("Plural rules for locale [{$lang}] has not been found.");
+
+        return self::$rules[$lang] = require $filename;
     }
 }
