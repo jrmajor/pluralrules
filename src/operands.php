@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Major\PluralRules\Operands;
 
-function mod(int|float $number, $divisor): int|float
+function mod(int|float $number, int $divisor): float
 {
     return $number % $divisor + $number - round($number);
 }
