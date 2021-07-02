@@ -69,3 +69,19 @@ function t(string $number): int
 {
     return (int) rtrim((string) f($number), '0');
 }
+
+/**
+ * Compact decimal exponent value.
+ */
+function c(string $number): int
+{
+    return 0;
+}
+
+/**
+ * Synonym for c().
+ */
+function e(string $number): int
+{
+    return c($number);
+}
