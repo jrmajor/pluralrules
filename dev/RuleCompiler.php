@@ -6,6 +6,7 @@ use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
+use Symfony\Component\Finder\Finder;
 
 final class RuleCompiler
 {
@@ -31,6 +32,10 @@ final class RuleCompiler
      */
     protected function makeLocales(array $locales): void
     {
+        foreach ((new Finder())->in(__DIR__ . '/../rules') as $file) {
+            unlink($file->getRealPath() ?: throw new Exception());
+        }
+
         foreach ($locales as $locale => $rules) {
             if ($locale === 'root') {
                 continue;
