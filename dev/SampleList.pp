@@ -3,7 +3,6 @@
 %token  integers        @integer
 %token  decimals        @decimal
 %token  tilde           ~
-%token  dot             \.
 %token  comma           ,
 %token  ellipsis        (…|\.\.\.)
 %token  value           [0-9]+(\.[0-9]+)?([ce][1-9][0-9]*)?

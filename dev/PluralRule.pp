@@ -5,12 +5,10 @@
 %token  not             not
 %token  eq              =
 %token  neq             !=
-%token  mod             (%|mod)
+%token  mod             %|mod
 %token  operand         n|i|f|t|v|w|c|e
 %token  doubleDot       \.\.
-%token  dot             \.
 %token  comma           ,
-%token  ellipsis        …|\.\.\.
 %token  number          [0-9]+
 
 #condition:
