@@ -180,6 +180,6 @@ final class RuleCompiler
 
         $mod = $expression->getChild(1)?->getValueValue();
 
-        return $mod !== null ? "mod($operand, $mod)" : $operand;
+        return $mod !== null ? "mod({$operand}, {$mod})" : $operand;
     }
 }
