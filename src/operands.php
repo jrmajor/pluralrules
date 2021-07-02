@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Major\PluralRules\Operands;
 
+function mod(int|float $number, $divisor): int|float
+{
+    return $number % $divisor + $number - round($number);
+}
+
 function in_range(int|float $number, int $from, int $to): bool
 {
     if ($number - round($number) !== 0.0) {

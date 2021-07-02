@@ -99,6 +99,10 @@ final class RuleCompiler
                     continue;
                 }
 
+                if (count($child->getChild(0)->getChildren()) > 1) {
+                    $operands[] = 'mod';
+                }
+
                 foreach ($child->getChild(2)->getChildren() as $rangeOrValue) {
                     if ($rangeOrValue->getId() === '#range') {
                         $operands[] = 'in_range';
@@ -175,8 +179,8 @@ final class RuleCompiler
     {
         $operand = $expression->getChild(0)->getValueValue() . '($n)';
 
-        return ! $expression->childExists(1)
-            ? $operand
-            : $operand . ' % ' . $expression->getChild(1)->getValueValue();
+        $mod = $expression->getChild(1)?->getValueValue();
+
+        return $mod !== null ? "mod($operand, $mod)" : $operand;
     }
 }
