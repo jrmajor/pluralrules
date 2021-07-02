@@ -5,4 +5,16 @@
 
 A PHP package for identifying the plural rule, according to [CLDR](https://github.com/unicode-cldr/cldr-core/blob/master/supplemental/plurals.json), for a given number.
 
+```php
+Major\PluralRules\PluralRules::select('pl', 42); // 'few'
+```
+
 You can install it via composer: `composer require jrmajor/pluralrules`. It requires PHP 8.0 or higher.
+
+## Testing
+
+```sh
+vendor/bin/pest              # Tests
+vendor/bin/phpstan analyse   # Static analysis
+vendor/bin/php-cs-fixer fix  # Formatting
+```
