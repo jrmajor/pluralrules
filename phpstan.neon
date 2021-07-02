@@ -6,3 +6,11 @@ parameters:
         - src
     ignoreErrors:
         - '#^Match expression does not handle remaining value: #'
+        -
+            message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+            count: 1
+            path: dev/RuleCompiler.php
+        -
+            message: "#^Using nullsafe method call on non\\-nullable type Hoa\\\\Compiler\\\\Llk\\\\TreeNode\\. Use \\-\\> instead\\.$#"
+            count: 1
+            path: dev/RuleCompiler.php
