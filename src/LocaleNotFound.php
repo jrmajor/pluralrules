@@ -6,8 +6,8 @@ use Exception;
 
 class LocaleNotFound extends Exception
 {
-    public function __construct()
+    public function __construct(string $locale)
     {
-        parent::__construct('Locale not found.');
+        parent::__construct("Plural rules for {$locale} has not been found.");
     }
 }
