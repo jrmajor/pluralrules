@@ -91,11 +91,18 @@ final class RuleCompiler
     protected function compileImports(array $rules): string
     {
         $operands = [];
+        $inRange = '';
 
         foreach ($rules as $rule) {
             foreach ($rule->getChildren() as $child) {
                 if ($child->getId() !== '#relation') {
                     continue;
+                }
+
+                foreach ($child->getChild(2)->getChildren() as $rangeOrValue) {
+                    if ($rangeOrValue->getId() === '#range') {
+                        $operands[] = 'in_range';
+                    }
                 }
 
                 $operands[] = $child->getChild(0)->getChild(0)->getValueValue();
@@ -142,15 +149,26 @@ final class RuleCompiler
 
         $expression = $this->compileExpression($relation->getChild(0));
 
-        $ranges = $this->compileRangeList($relation->getChild(2));
+        $compiled = '';
 
-        if (count($ranges) === 1) {
-            return "{$expression} ".($negated ? '!=' : '==')." {$ranges[0]}";
+        foreach ($relation->getChild(2)->getChildren() as $key => $range) {
+            if ($key !== 0) {
+                $compiled .= ' || ';
+            }
+
+            if ($range->getValueToken() === 'number') {
+                $compiled .= "{$expression} == {$range->getValueValue()}";
+
+                continue;
+            }
+
+            $from = $range->getChild(0)->getValueValue();
+            $to = $range->getChild(1)->getValueValue();
+
+            $compiled = "in_range({$expression}, {$from}, {$to})";
         }
 
-        $ranges = '['.implode(', ', $ranges).']';
-
-        return ($negated ? '! ' : '')."in_array({$expression}, {$ranges})";
+        return ($negated ? '! (' : '(').$compiled.')';
     }
 
     protected function compileExpression(TreeNode $expression): string
@@ -160,28 +178,5 @@ final class RuleCompiler
         return ! $expression->childExists(1)
             ? $operand
             : $operand.' % '.$expression->getChild(1)->getValueValue();
-    }
-
-    /**
-     * @return array<string|int>
-     */
-    protected function compileRangeList(TreeNode $ranges): array
-    {
-        $output = [];
-
-        foreach ($ranges->getChildren() as $range) {
-            if ($range->getValueToken() === 'number') {
-                $output[] = $range->getValueValue();
-
-                continue;
-            }
-
-            $from = (int) $range->getChild(0)->getValueValue();
-            $to = (int) $range->getChild(1)->getValueValue();
-
-            $output = array_merge($output, range($from, $to));
-        }
-
-        return $output;
     }
 }

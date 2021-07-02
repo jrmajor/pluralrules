@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 namespace Major\PluralRules\Operands;
 
+function in_range(int|float $number, int $from, int $to): bool
+{
+    if ($number - round($number) !== 0.0) {
+        return false;
+    }
+
+    return $number >= $from && $number <= $to;
+}
+
 /**
  * Absolute value of the source number.
  */

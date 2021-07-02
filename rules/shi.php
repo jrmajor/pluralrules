@@ -1,8 +1,8 @@
 <?php
 
-use function Major\PluralRules\Operands\{i, n};
+use function Major\PluralRules\Operands\{i, in_range, n};
 
 return [
-    'one' => fn ($n) => i($n) == 0 || n($n) == 1,
-    'few' => fn ($n) => in_array(n($n), [2, 3, 4, 5, 6, 7, 8, 9, 10]),
+    'one' => fn ($n) => (i($n) == 0) || (n($n) == 1),
+    'few' => fn ($n) => (in_range(n($n), 2, 10)),
 ];
