@@ -3,14 +3,14 @@
 use Major\PluralRules\PluralRules;
 
 test('one', function ($num) {
-    $category = PluralRules::select('pt-pt', $num);
+    $category = PluralRules::select('pt-PT', $num);
     expect($category)->toBe('one');
 })->with([
     1,
 ]);
 
 test('other', function ($num) {
-    $category = PluralRules::select('pt-pt', $num);
+    $category = PluralRules::select('pt-PT', $num);
     expect($category)->toBe('other');
 })->with([
     2,

@@ -59,12 +59,15 @@ final class TestCompiler
             $asts[$category] = $this->llk->parse($samples);
         }
 
-        $locale = ucfirst($locale);
+        $filename = implode(array_map(
+            fn ($p) => ucfirst(strtolower($p)),
+            explode('-', $locale),
+        ));
 
         file_put_contents(
-            __DIR__ . "/../tests/Locale/{$locale}Test.php",
-            $this->compileTests(strtolower($locale), $asts),
-        ) ?: throw new Exception("Failed to write {$locale}Test.php");
+            __DIR__ . "/../tests/Locale/{$filename}Test.php",
+            $this->compileTests($locale, $asts),
+        ) ?: throw new Exception("Failed to write {$filename}Test.php");
     }
 
     /**
