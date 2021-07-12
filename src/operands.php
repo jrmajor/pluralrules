@@ -6,6 +6,8 @@ namespace Major\PluralRules\Operands;
 
 /**
  * Absolute value of the source number.
+ *
+ * @internal
  */
 function n(string $number): float
 {
@@ -14,6 +16,8 @@ function n(string $number): float
 
 /**
  * Integer digits of n.
+ *
+ * @internal
  */
 function i(string $number): int
 {
@@ -22,6 +26,8 @@ function i(string $number): int
 
 /**
  * Number of visible fraction digits in n, with trailing zeros.
+ *
+ * @internal
  */
 function v(string $number): int
 {
@@ -33,6 +39,8 @@ function v(string $number): int
 
 /**
  * Number of visible fraction digits in n, without trailing zeros.
+ *
+ * @internal
  */
 function w(string $number): int
 {
@@ -44,6 +52,8 @@ function w(string $number): int
 
 /**
  * Visible fraction digits in n, with trailing zeros.
+ *
+ * @internal
  */
 function f(string $number): int
 {
@@ -55,6 +65,8 @@ function f(string $number): int
 
 /**
  * Visible fraction digits in n, without trailing zeros.
+ *
+ * @internal
  */
 function t(string $number): int
 {
@@ -63,6 +75,8 @@ function t(string $number): int
 
 /**
  * Compact decimal exponent value.
+ *
+ * @internal
  */
 function c(string $number): int
 {
@@ -71,6 +85,8 @@ function c(string $number): int
 
 /**
  * Synonym for c().
+ *
+ * @internal
  */
 function e(string $number): int
 {
