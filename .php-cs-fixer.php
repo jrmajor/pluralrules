@@ -5,6 +5,8 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCS(true);
 
 return Major\CS\config($finder, [
+    // Re-enable one https://github.com/FriendsOfPHP/PHP-CS-Fixer/issues/5797 is merged
+    'no_break_comment' => false,
     'single_import_per_statement' => false,
     'phpdoc_summary' => false,
     // Remove throw, broken when using throw expressions inline after ?: or ??.

@@ -1,6 +1,7 @@
 <?php
 
-use function Major\PluralRules\Operands\{in_range, mod, n};
+use function Major\PluralRules\Operands\n;
+use function Major\PluralRules\Operators\{in_range, mod};
 
 return [
     'zero' => fn ($n) => (n($n) == 0),

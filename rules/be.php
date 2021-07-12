@@ -1,6 +1,7 @@
 <?php
 
-use function Major\PluralRules\Operands\{in_range, mod, n};
+use function Major\PluralRules\Operands\n;
+use function Major\PluralRules\Operators\{in_range, mod};
 
 return [
     'one' => fn ($n) => (mod(n($n), 10) == 1) && ! (mod(n($n), 100) == 11),

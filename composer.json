@@ -32,7 +32,7 @@
         "psr-4": {
             "Major\\PluralRules\\": "src"
         },
-        "files": ["src/operands.php"]
+        "files": ["src/operands.php", "src/operators.php"]
     },
     "autoload-dev": {
         "psr-4": {

@@ -90,7 +90,7 @@ final class RuleCompiler
      */
     protected function compileImports(array $rules): string
     {
-        $operands = [];
+        $operands = $operators = [];
 
         foreach ($rules as $rule) {
             foreach ($rule->getChildren() as $child) {
@@ -99,12 +99,12 @@ final class RuleCompiler
                 }
 
                 if (count($child->getChild(0)->getChildren()) > 1) {
-                    $operands[] = 'mod';
+                    $operators[] = 'mod';
                 }
 
                 foreach ($child->getChild(2)->getChildren() as $rangeOrValue) {
                     if ($rangeOrValue->getId() === '#range') {
-                        $operands[] = 'in_range';
+                        $operators[] = 'in_range';
                     }
                 }
 
@@ -113,13 +113,23 @@ final class RuleCompiler
         }
 
         $operands = array_unique($operands);
+        $operators = array_unique($operators);
 
         sort($operands);
+        sort($operators);
 
-        return match (count($operands)) {
+        $operands = match (count($operands)) {
             1 => "use function Major\\PluralRules\\Operands\\{$operands[0]};",
             default => 'use function Major\\PluralRules\\Operands\\{' . implode(', ', $operands) . '};',
         };
+
+        $operators = match (count($operators)) {
+            0 => '',
+            1 => "use function Major\\PluralRules\\Operators\\{$operators[0]};",
+            default => 'use function Major\\PluralRules\\Operators\\{' . implode(', ', $operators) . '};',
+        };
+
+        return trim($operands . "\n" . $operators);
     }
 
     protected function compileRule(TreeNode $rule): string

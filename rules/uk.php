@@ -1,6 +1,7 @@
 <?php
 
-use function Major\PluralRules\Operands\{i, in_range, mod, v};
+use function Major\PluralRules\Operands\{i, v};
+use function Major\PluralRules\Operators\{in_range, mod};
 
 return [
     'one' => fn ($n) => (v($n) == 0) && (mod(i($n), 10) == 1) && ! (mod(i($n), 100) == 11),

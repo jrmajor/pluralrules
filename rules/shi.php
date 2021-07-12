@@ -1,6 +1,7 @@
 <?php
 
-use function Major\PluralRules\Operands\{i, in_range, n};
+use function Major\PluralRules\Operands\{i, n};
+use function Major\PluralRules\Operators\in_range;
 
 return [
     'one' => fn ($n) => (i($n) == 0) || (n($n) == 1),
