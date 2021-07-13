@@ -39,7 +39,7 @@ foreach ((new Finder())->in([
 }
 
 $locales = json_decode(
-    file_get_contents(__DIR__.'/../data/plurals.json') ?: throw new Exception(),
+    file_get_contents(__DIR__ . '/../data/plurals.json') ?: throw new Exception(),
     associative: true,
 )['supplemental']['plurals-type-cardinal'];
 
