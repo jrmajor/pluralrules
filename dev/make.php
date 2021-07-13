@@ -16,7 +16,7 @@ use Symfony\Component\Finder\Finder;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Register nicer error handler
+// Register error handler
 (new \NunoMaduro\Collision\Provider())->register();
 
 /**
@@ -39,8 +39,7 @@ foreach ((new Finder())->in([
 }
 
 $locales = json_decode(
-    file_get_contents(__DIR__ . '/../data/plurals.json')
-        ?: throw new Exception(__DIR__ . '/../plurals.json does not exist.'),
+    file_get_contents(__DIR__.'/../data/plurals.json') ?: throw new Exception(),
     associative: true,
 )['supplemental']['plurals-type-cardinal'];
 

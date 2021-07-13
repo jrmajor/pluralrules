@@ -1,10 +1,6 @@
 <?php
 
-/**
- * Syntax description: http://unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
- * JSON Rules: https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/supplemental/plurals.json
- * Rules reference: https://unicode-org.github.io/cldr-staging/charts/latest/supplemental/language_plural_rules.html
- */
+declare(strict_types=1);
 
 namespace Major\PluralRules;
 
