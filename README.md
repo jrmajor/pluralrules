@@ -11,6 +11,16 @@ Major\PluralRules\PluralRules::select('pl', 42); // 'few'
 
 You can install it via composer: `composer require jrmajor/pluralrules`. It requires PHP 8.0 or higher.
 
+## Compiling rules
+
+Download plural rules in JSON format from CLDR repository to `data/plurals.json`:
+
+```sh
+curl https://raw.githubusercontent.com/unicode-org/cldr-json/master/cldr-json/cldr-core/supplemental/plurals.json -o data/plurals.json
+```
+
+Run `composer make` to compile rules.
+
 ## Testing
 
 ```sh
