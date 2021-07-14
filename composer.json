@@ -1,6 +1,6 @@
 {
     "name": "jrmajor/pluralrules",
-    "description": "CLDR plural rules",
+    "description": "Identify plural categories according to CLDR",
     "keywords": [
         "cldr",
         "localization"
