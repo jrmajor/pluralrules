@@ -21,9 +21,9 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "hoa/compiler": "~3.17",
         "jrmajor/cs": "^0.1.1",
-        "nunomaduro/collision": "^5.7",
-        "pestphp/pest": "^1.15",
-        "phpstan/phpstan": "^0.12.94",
+        "nunomaduro/collision": "^5.8",
+        "pestphp/pest": "^1.16",
+        "phpstan/phpstan": "^0.12.96",
         "symfony/var-dumper": "^5.3",
         "symfony/finder": "^5.3",
         "spatie/fork": "^1.1"
