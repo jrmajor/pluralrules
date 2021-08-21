@@ -21,3 +21,6 @@ parameters:
 
     stubFiles:
         - phpstan.stub
+
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
