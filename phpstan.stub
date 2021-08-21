@@ -1,0 +1,27 @@
+<?php
+
+namespace Hoa\Compiler\Llk;
+
+class TreeNode
+{
+    /**
+     * @return ?string
+     */
+    public function getValueToken();
+
+    /**
+     * @return ?string
+     */
+    public function getValueValue();
+
+    /**
+     * @param int $i
+     * @return ?self
+     */
+    public function getChild($i);
+
+    /**
+     * @return self[]
+     */
+    public function getChildren();
+}
