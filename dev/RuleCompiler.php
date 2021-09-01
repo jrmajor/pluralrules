@@ -16,9 +16,9 @@ use Hoa\Compiler\Llk\TreeNode;
 
 final class RuleCompiler
 {
-    protected Parser $llk;
+    private Parser $llk;
 
-    protected function __construct()
+    private function __construct()
     {
         $this->llk = Llk::load(
             new \Hoa\File\Read(__DIR__ . '/PluralRule.pp'),
@@ -36,7 +36,7 @@ final class RuleCompiler
     /**
      * @param array<string, array<string, string>> $locales
      */
-    protected function makeLocales(array $locales): void
+    private function makeLocales(array $locales): void
     {
         foreach ($locales as $locale => $rules) {
             if ($locale === 'root') {
@@ -50,7 +50,7 @@ final class RuleCompiler
     /**
      * @param array<string, string> $rules
      */
-    protected function makeLocale(string $locale, array $rules): void
+    private function makeLocale(string $locale, array $rules): void
     {
         $asts = [];
 
@@ -77,7 +77,7 @@ final class RuleCompiler
     /**
      * @param array<string, TreeNode> $rules
      */
-    protected function compileRules(array $rules): string
+    private function compileRules(array $rules): string
     {
         if (! $rules) {
             return "<?php\n\nreturn [];\n";
@@ -95,7 +95,7 @@ final class RuleCompiler
     /**
      * @param array<string, TreeNode> $rules
      */
-    protected function compileImports(array $rules): string
+    private function compileImports(array $rules): string
     {
         $operands = $operators = [];
 
@@ -139,7 +139,7 @@ final class RuleCompiler
         return trim($operands . "\n" . $operators);
     }
 
-    protected function compileRule(TreeNode $rule): string
+    private function compileRule(TreeNode $rule): string
     {
         $output = '';
 
@@ -156,7 +156,7 @@ final class RuleCompiler
         return $output;
     }
 
-    protected function compileRelation(TreeNode $relation): string
+    private function compileRelation(TreeNode $relation): string
     {
         $negated = false;
 
@@ -191,7 +191,7 @@ final class RuleCompiler
         return ($negated ? '! (' : '(') . $compiled . ')';
     }
 
-    protected function compileExpression(TreeNode $expression): string
+    private function compileExpression(TreeNode $expression): string
     {
         $operand = $expression->getChild(0)->getValueValue() . '($n)';
 

@@ -16,9 +16,9 @@ use Hoa\Compiler\Llk\TreeNode;
 
 final class TestCompiler
 {
-    protected Parser $llk;
+    private Parser $llk;
 
-    protected function __construct()
+    private function __construct()
     {
         $this->llk = Llk::load(
             new \Hoa\File\Read(__DIR__ . '/SampleList.pp'),
@@ -36,7 +36,7 @@ final class TestCompiler
     /**
      * @param array<string, array<string, string>> $locales
      */
-    protected function makeLocales(array $locales): void
+    private function makeLocales(array $locales): void
     {
         foreach ($locales as $locale => $rules) {
             if ($locale === 'root') {
@@ -50,7 +50,7 @@ final class TestCompiler
     /**
      * @param array<string, string> $rules
      */
-    protected function makeLocale(string $locale, array $rules): void
+    private function makeLocale(string $locale, array $rules): void
     {
         $asts = [];
 
@@ -80,7 +80,7 @@ final class TestCompiler
     /**
      * @param array<string, TreeNode> $samples
      */
-    protected function compileTests(string $locale, array $samples): string
+    private function compileTests(string $locale, array $samples): string
     {
         if (! $samples) {
             throw new Exception('No samples!');
@@ -112,7 +112,7 @@ final class TestCompiler
     /**
      * @return string[]
      */
-    protected function compileSamples(TreeNode $samples): array
+    private function compileSamples(TreeNode $samples): array
     {
         $output = [];
 
@@ -131,7 +131,7 @@ final class TestCompiler
         return array_filter($output);
     }
 
-    protected function compileValue(TreeNode $value): ?string
+    private function compileValue(TreeNode $value): ?string
     {
         $value = $value->getValueValue();
 

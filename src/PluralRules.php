@@ -10,9 +10,9 @@ use Locale;
 final class PluralRules
 {
     /** @var array<string, array<string, Closure>> */
-    protected static array $rules = [];
+    private static array $rules = [];
 
-    protected function __construct() { }
+    private function __construct() { }
 
     public static function select(string $locale, int|float|string $number): string
     {
@@ -32,7 +32,7 @@ final class PluralRules
     /**
      * @return array<string, Closure>
      */
-    protected static function rulesFor(string $locale): array
+    private static function rulesFor(string $locale): array
     {
         $lang = Locale::getPrimaryLanguage($locale);
 
