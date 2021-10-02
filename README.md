@@ -9,7 +9,7 @@ A PHP package for identifying the plural category, according to [CLDR](https://g
 Major\PluralRules\PluralRules::select('pl', 42); // 'few'
 ```
 
-You can install it via composer: `composer require jrmajor/pluralrules`. It requires PHP 8.0 or higher.
+You may install it via composer: `composer require jrmajor/pluralrules`. It requires PHP 8.0 or higher.
 
 ## Compiling rules
 
