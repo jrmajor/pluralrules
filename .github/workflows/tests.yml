@@ -61,7 +61,7 @@ jobs:
           php-version: 8.0
 
       - name: Install Composer dependencies
-        run: composer update --prefer-stable --prefer-dist --no-progress --no-interaction
+        run: composer install --no-progress --no-interaction
 
       - name: Install Yarn dependencies
         run: yarn install
