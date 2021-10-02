@@ -45,3 +45,29 @@ jobs:
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse --no-progress --no-interaction
+
+  integrity:
+    name: Integrity check
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+
+      - name: Install Composer dependencies
+        run: composer update --prefer-stable --prefer-dist --no-progress --no-interaction
+
+      - name: Install Yarn dependencies
+        run: yarn install
+
+      - name: Compile rules
+        run: composer make
+
+      - name: Check for uncommited changes
+        run: git add . && git diff --cached --exit-code
