@@ -2,7 +2,6 @@
 
 /**
  * Syntax description: http://unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
- * JSON Rules: https://github.com/unicode-org/cldr-json/blob/master/cldr-json/cldr-core/supplemental/plurals.json
  * Rules reference: https://unicode-org.github.io/cldr-staging/charts/latest/supplemental/language_plural_rules.html
  */
 
@@ -39,7 +38,7 @@ foreach ((new Finder())->in([
 }
 
 $locales = json_decode(
-    file_get_contents(__DIR__ . '/../data/plurals.json') ?: throw new Exception(),
+    file_get_contents(__DIR__ . '/../node_modules/cldr-core/supplemental/plurals.json') ?: throw new Exception(),
     associative: true,
 )['supplemental']['plurals-type-cardinal'];
 

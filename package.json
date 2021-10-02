@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+    "cldr-core": "^39.0.0"
+  }
+}
