@@ -1,27 +1,63 @@
 <?php
 
-namespace Hoa\Compiler\Llk;
-
-class TreeNode
+namespace Hoa\Compiler\Llk
 {
-    /**
-     * @return ?string
-     */
-    public function getValueToken();
+    class Parser
+    {
+        /**
+         * @param string $text
+         * @param string $rule
+         * @param bool $tree
+         * @return TreeNode
+         */
+        public function parse($text, $rule = null, $tree = true);
+    }
 
-    /**
-     * @return ?string
-     */
-    public function getValueValue();
+    class TreeNode
+    {
+        /**
+         * @return ?string
+         */
+        public function getValueToken();
 
-    /**
-     * @param int $i
-     * @return ?self
-     */
-    public function getChild($i);
+        /**
+         * @return ?string
+         */
+        public function getValueValue();
 
-    /**
-     * @return self[]
-     */
-    public function getChildren();
+        /**
+         * @param int $i
+         * @return ?self
+         */
+        public function getChild($i);
+
+        /**
+         * @return self[]
+         */
+        public function getChildren();
+    }
+}
+
+namespace Hoa\Visitor
+{
+    interface Element { }
+
+    interface Visit { }
+}
+
+namespace Hoa\Compiler\Visitor
+{
+    use Hoa\Visitor\Element;
+    use Hoa\Visitor\Visit;
+
+    class Dump implements Visit
+    {
+        /**
+         * @param Element $element
+         * @param mixed &$handle
+         * @param mixed $eldnah
+         * @return string
+         */
+        public function visit(Element $element, &$handle = null, $eldnah  = null);
+    }
 }

@@ -37,10 +37,13 @@ foreach ((new Finder())->in([
     unlink($file->getRealPath() ?: throw new Exception("{$file} does not exist."));
 }
 
-$locales = json_decode(
-    file_get_contents(__DIR__ . '/../node_modules/cldr-core/supplemental/plurals.json') ?: throw new Exception(),
-    associative: true,
-)['supplemental']['plurals-type-cardinal'];
+$locales = file_get_contents(__DIR__ . '/../node_modules/cldr-core/supplemental/plurals.json')
+    ?: throw new Exception('plurals.json does not exist.');
+
+/** @@phpstan-ignore-next-line */
+$locales = json_decode($locales, associative: true)['supplemental']['plurals-type-cardinal'];
+
+assert(is_array($locales));
 
 $locales = array_chunk($locales, 50, preserve_keys: true);
 
