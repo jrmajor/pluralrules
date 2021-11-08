@@ -13,6 +13,7 @@ $application = new Application('pluralrules locale data compiler');
 
 $application->addCommands([
     new Commands\CompileRulesCommand(),
+    new Commands\CompileTestsCommand(),
 ]);
 
 $application->run();

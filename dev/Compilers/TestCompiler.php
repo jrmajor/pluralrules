@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Major\PluralRules;
+namespace Major\PluralRules\Dev\Compilers;
 
 use Exception;
 use Hoa\Compiler\Llk\Llk;
@@ -18,43 +18,21 @@ final class TestCompiler
 {
     private Parser $llk;
 
-    private function __construct()
-    {
+    public function __construct(
+        private string $locale,
+        /** @var array<string, string> */
+        private array $rules,
+    ) {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/SampleList.pp'),
+            new \Hoa\File\Read(__DIR__ . '/../grammars/SampleList.pp'),
         );
     }
 
-    /**
-     * @param array<string, array<string, string>> $locales
-     */
-    public static function make(array $locales): void
-    {
-        (new self())->makeLocales($locales);
-    }
-
-    /**
-     * @param array<string, array<string, string>> $locales
-     */
-    private function makeLocales(array $locales): void
-    {
-        foreach ($locales as $locale => $rules) {
-            if ($locale === 'root') {
-                continue;
-            }
-
-            $this->makeLocale($locale, $rules);
-        }
-    }
-
-    /**
-     * @param array<string, string> $rules
-     */
-    private function makeLocale(string $locale, array $rules): void
+    public function compile(): void
     {
         $asts = [];
 
-        foreach ($rules as $category => $rule) {
+        foreach ($this->rules as $category => $rule) {
             $category = substr($category, 17);
 
             if (! str_contains($rule, '@')) {
@@ -68,12 +46,12 @@ final class TestCompiler
 
         $filename = implode(array_map(
             fn ($p) => ucfirst(strtolower($p)),
-            explode('-', $locale),
+            explode('-', $this->locale),
         ));
 
         file_put_contents(
-            __DIR__ . "/../tests/Locale/{$filename}Test.php",
-            $this->compileTests($locale, $asts),
+            __DIR__ . "/../../tests/Locale/{$filename}Test.php",
+            $this->compileTests($this->locale, $asts),
         ) ?: throw new Exception("Failed to write {$filename}Test.php");
     }
 
