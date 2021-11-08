@@ -2,12 +2,16 @@
     "name": "jrmajor/pluralrules",
     "description": "Identify plural categories according to CLDR",
     "keywords": [
-        "localization",
-        "l10n",
-        "internationalization",
+        "plural",
+        "plural rules",
+        "plural categories",
         "i18n",
-        "cldr",
-        "plural rules"
+        "internationalization",
+        "l10n",
+        "localization",
+        "locale",
+        "language",
+        "cldr"
     ],
     "homepage": "https://github.com/jrmajor/pluralrules",
     "license": "MIT",
