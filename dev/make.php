@@ -40,7 +40,6 @@ $locales = array_chunk($locales, 50, preserve_keys: true);
 $tasks = [];
 
 foreach ($locales as $chunk) {
-    $tasks[] = fn () => RuleCompiler::make($chunk);
     $tasks[] = fn () => TestCompiler::make($chunk);
 }
 
