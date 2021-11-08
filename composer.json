@@ -45,7 +45,8 @@
         "psr-4": {
             "Major\\PluralRules\\": "dev",
             "Major\\PluralRules\\Tests\\": "tests"
-        }
+        },
+        "files": ["dev/helpers.php"]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

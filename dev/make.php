@@ -18,16 +18,6 @@ require __DIR__ . '/../vendor/autoload.php';
 // Register error handler
 (new \NunoMaduro\Collision\Provider())->register();
 
-/**
- * Debugging helper, dumps TreeNode object.
- */
-function da(\Hoa\Compiler\Llk\TreeNode $ast): void
-{
-    echo (new \Hoa\Compiler\Visitor\Dump())->visit($ast);
-
-    exit(1);
-}
-
 $start = microtime(true);
 
 foreach ((new Finder())->in([
