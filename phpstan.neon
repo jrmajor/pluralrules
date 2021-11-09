@@ -8,15 +8,15 @@ parameters:
         -
             message: '#^Cannot call method (getChild|getChildren|getValueValue)\(\) on Hoa\\Compiler\\Llk\\TreeNode\|null\.$#'
             count: 9
-            path: dev/RuleCompiler.php
+            path: dev/Compilers/RuleCompiler.php
         -
             message: '#expects Hoa\\Compiler\\Llk\\TreeNode, Hoa\\Compiler\\Llk\\TreeNode\|null given\.$#'
             count: 1
-            path: dev/RuleCompiler.php
+            path: dev/Compilers/RuleCompiler.php
         -
             message: '#^Parameter \#1 \$haystack of function (str_contains|str_ends_with) expects string, string\|null given\.$#'
             count: 5
-            path: dev/TestCompiler.php
+            path: dev/Compilers/TestCompiler.php
 
     stubFiles:
         - phpstan.stub

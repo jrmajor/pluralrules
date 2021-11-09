@@ -14,7 +14,7 @@ You may install it via composer: `composer require jrmajor/pluralrules`. It requ
 ## Contributing
 
 This package works by compiling CLDR plural rules to PHP closures like [these](rules/pl.php).
-This is done by `composer make` script.
+This is done by `gen` script (`php gen rules` and `php gen tests`).
 Before running it, you would need to run `yarn install` to download [`cldr-core`](https://github.com/unicode-org/cldr-json/tree/main/cldr-json/cldr-core) package.
 
 ## Testing

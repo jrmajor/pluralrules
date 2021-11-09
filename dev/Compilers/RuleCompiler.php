@@ -7,54 +7,33 @@
 
 declare(strict_types=1);
 
-namespace Major\PluralRules;
+namespace Major\PluralRules\Dev\Compilers;
 
 use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
+use Major\PluralRules\Dev\Helpers\LocaleFiles;
 
 final class RuleCompiler
 {
     private Parser $llk;
 
-    private function __construct()
-    {
+    public function __construct(
+        private string $locale,
+        /** @var array<string, string> */
+        private array $rules,
+    ) {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/PluralRule.pp'),
+            new \Hoa\File\Read(__DIR__ . '/../grammars/PluralRule.pp'),
         );
     }
 
-    /**
-     * @param array<string, array<string, string>> $locales
-     */
-    public static function make(array $locales): void
-    {
-        (new self())->makeLocales($locales);
-    }
-
-    /**
-     * @param array<string, array<string, string>> $locales
-     */
-    private function makeLocales(array $locales): void
-    {
-        foreach ($locales as $locale => $rules) {
-            if ($locale === 'root') {
-                continue;
-            }
-
-            $this->makeLocale($locale, $rules);
-        }
-    }
-
-    /**
-     * @param array<string, string> $rules
-     */
-    private function makeLocale(string $locale, array $rules): void
+    public function compile(): void
     {
         $asts = [];
 
-        foreach ($rules as $category => $rule) {
+        foreach ($this->rules as $category => $rule) {
             $category = substr($category, 17);
 
             if ($category === 'other') {
@@ -68,10 +47,7 @@ final class RuleCompiler
             $asts[$category] = $this->llk->parse($rule);
         }
 
-        file_put_contents(
-            __DIR__ . "/../rules/{$locale}.php",
-            $this->compileRules($asts),
-        ) ?: throw new Exception("Failed to write {$locale}.php");
+        LocaleFiles::write('rules', $this->locale, $this->compileRules($asts));
     }
 
     /**

@@ -32,8 +32,8 @@
         "pestphp/pest": "^1.20",
         "phpstan/phpstan": "^1.0",
         "symfony/var-dumper": "^5.3",
-        "symfony/finder": "^5.3",
-        "spatie/fork": "^1.1"
+        "symfony/console": "^5.3",
+        "azjezz/psl": "^1.9"
     },
     "autoload": {
         "psr-4": {
@@ -43,13 +43,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Major\\PluralRules\\": "dev",
+            "Major\\PluralRules\\Dev\\": "dev",
             "Major\\PluralRules\\Tests\\": "tests"
-        }
+        },
+        "files": ["dev/helpers.php"]
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "make": "php dev/make.php"
-    }
+    "prefer-stable": true
 }
