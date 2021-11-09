@@ -32,7 +32,6 @@
         "pestphp/pest": "^1.20",
         "phpstan/phpstan": "^1.0",
         "symfony/var-dumper": "^5.3",
-        "symfony/finder": "^5.3",
         "symfony/console": "^5.3",
         "azjezz/psl": "^1.9"
     },

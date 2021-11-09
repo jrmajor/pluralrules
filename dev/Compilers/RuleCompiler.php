@@ -13,6 +13,7 @@ use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
+use Major\PluralRules\Dev\Helpers\LocaleFiles;
 
 final class RuleCompiler
 {
@@ -46,10 +47,7 @@ final class RuleCompiler
             $asts[$category] = $this->llk->parse($rule);
         }
 
-        file_put_contents(
-            __DIR__ . "/../../rules/{$this->locale}.php",
-            $this->compileRules($asts),
-        ) ?: throw new Exception("Failed to write {$this->locale}.php");
+        LocaleFiles::write('rules', $this->locale, $this->compileRules($asts));
     }
 
     /**

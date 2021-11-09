@@ -13,6 +13,9 @@ use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
+use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Psl\Str;
+use Psl\Type;
 
 final class TestCompiler
 {
@@ -47,12 +50,9 @@ final class TestCompiler
         $filename = implode(array_map(
             fn ($p) => ucfirst(strtolower($p)),
             explode('-', $this->locale),
-        ));
+        )) . 'Test';
 
-        file_put_contents(
-            __DIR__ . "/../../tests/Locale/{$filename}Test.php",
-            $this->compileTests($this->locale, $asts),
-        ) ?: throw new Exception("Failed to write {$filename}Test.php");
+        LocaleFiles::write('tests', $filename, $this->compileTests($this->locale, $asts));
     }
 
     /**

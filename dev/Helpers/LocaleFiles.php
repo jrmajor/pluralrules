@@ -23,6 +23,14 @@ final class LocaleFiles
     /**
      * @param D $dir
      */
+    public static function write(string $dir, string $locale, string $content): void
+    {
+        Filesystem\write_file(self::path($dir, "{$locale}.php"), $content);
+    }
+
+    /**
+     * @param D $dir
+     */
     private static function path(string $dir, ?string $path = null): string
     {
         return match ($dir) {
