@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "hoa/compiler": "~3.17",
-        "jrmajor/cs": "^0.3.0",
+        "jrmajor/cs": "^0.3.2",
         "nunomaduro/collision": "^5.10",
         "pestphp/pest": "^1.20",
         "phpstan/phpstan": "^1.0",
