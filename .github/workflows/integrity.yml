@@ -24,7 +24,9 @@ jobs:
         run: yarn install
 
       - name: Compile rules
-        run: composer make
+        run: |
+          php gen rules
+          php gen tests
 
       - name: Check for uncommited changes
         run: git add . && git diff --cached --exit-code
