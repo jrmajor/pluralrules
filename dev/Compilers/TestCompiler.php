@@ -14,8 +14,6 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
-use Psl\Str;
-use Psl\Type;
 
 final class TestCompiler
 {
