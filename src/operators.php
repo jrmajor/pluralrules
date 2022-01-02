@@ -9,7 +9,7 @@ namespace Major\PluralRules\Operators;
  */
 function mod(int|float $number, int $divisor): float
 {
-    return $number % $divisor + $number - round($number);
+    return (int) $number % $divisor + $number - round($number);
 }
 
 /**
