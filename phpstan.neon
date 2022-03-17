@@ -3,6 +3,8 @@ parameters:
     paths:
         - dev
         - src
+    stubFiles:
+        - phpstan.stub
     ignoreErrors:
         - '#^Match expression does not handle remaining values?: #'
         -
@@ -17,9 +19,6 @@ parameters:
             message: '#^Parameter \#1 \$haystack of function (str_contains|str_ends_with) expects string, string\|null given\.$#'
             count: 5
             path: dev/Compilers/TestCompiler.php
-
-    stubFiles:
-        - phpstan.stub
 
 includes:
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
