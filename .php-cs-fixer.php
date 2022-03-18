@@ -11,4 +11,4 @@ return Major\CS\config($finder, [
     'no_extra_blank_lines' => [
         'tokens' => ['break', 'case', 'continue', 'curly_brace_block', 'default', 'extra', 'parenthesis_brace_block', 'switch', 'use'],
     ],
-]);
+])->setCacheFile('.cache/.php-cs-fixer.cache');
