@@ -14,6 +14,8 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Psl\Str;
+use Psl\Vec;
 
 final class TestCompiler
 {
@@ -34,21 +36,19 @@ final class TestCompiler
         $asts = [];
 
         foreach ($this->rules as $category => $rule) {
-            $category = substr($category, 17);
+            $category = Str\strip_prefix($category, 'pluralRule-count-');
 
-            if (! str_contains($rule, '@')) {
+            if (null === $samples = Str\after($rule, '@')) {
                 continue;
             }
 
-            $samples = strstr($rule, '@') ?: throw new Exception();
-
-            $asts[$category] = $this->llk->parse($samples);
+            $asts[$category] = $this->llk->parse('@' . $samples);
         }
 
-        $filename = implode('', array_map(
-            fn ($p) => ucfirst(strtolower($p)),
-            explode('-', $this->locale),
-        )) . 'Test';
+        $filename = Str\join(Vec\map(
+            Str\split($this->locale, '-'),
+            fn ($p) => ucfirst(Str\lowercase($p)),
+        ), '') . 'Test';
 
         LocaleFiles::write('tests', $filename, $this->compileTests($this->locale, $asts));
     }
@@ -58,19 +58,19 @@ final class TestCompiler
      */
     private function compileTests(string $locale, array $samples): string
     {
-        if (! $samples) {
+        if ($samples === []) {
             throw new Exception('No samples!');
         }
 
         $compiled = "<?php\n\nuse Major\\PluralRules\\PluralRules;\n";
 
         foreach ($samples as $category => $sampleList) {
-            $sampleList = array_map(
-                fn (string $sample) => "    {$sample},",
+            $sampleList = Vec\map(
                 $this->compileSamples($sampleList),
+                fn (string $sample) => "    {$sample},",
             );
 
-            $sampleList = implode("\n", $sampleList);
+            $sampleList = Str\join($sampleList, "\n");
 
             $compiled .= "\n" . <<<PHP
                 test('{$category}', function (\$num) {
@@ -82,7 +82,7 @@ final class TestCompiler
                 PHP . "\n";
         }
 
-        return "{$compiled}";
+        return $compiled;
     }
 
     /**
@@ -111,13 +111,13 @@ final class TestCompiler
     {
         $value = $value->getValueValue();
 
-        if (str_contains($value, 'c') || str_contains($value, 'e')) {
+        if (Str\contains($value, 'c') || Str\contains($value, 'e')) {
             return null;
         }
 
         if (
-            str_contains($value, '.')
-            && (str_ends_with($value, '0') && ! str_ends_with($value, '.0'))
+            Str\contains($value, '.')
+            && (Str\ends_with($value, '0') && ! Str\ends_with($value, '.0'))
         ) {
             return "'{$value}'";
         }

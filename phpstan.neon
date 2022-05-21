@@ -16,7 +16,7 @@ parameters:
             count: 1
             path: dev/Compilers/RuleCompiler.php
         -
-            message: '#^Parameter \#1 \$haystack of function (str_contains|str_ends_with) expects string, string\|null given\.$#'
+            message: '#^Parameter \#1 \$\w+ of function Psl\\Str\\(contains|ends_with) expects string, string\|null given\.$#'
             count: 5
             path: dev/Compilers/TestCompiler.php
     tmpDir: .cache/phpstan

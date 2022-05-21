@@ -9,11 +9,13 @@ declare(strict_types=1);
 
 namespace Major\PluralRules\Dev\Compilers;
 
-use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Psl\Dict;
+use Psl\Str;
+use Psl\Vec;
 
 final class RuleCompiler
 {
@@ -34,15 +36,13 @@ final class RuleCompiler
         $asts = [];
 
         foreach ($this->rules as $category => $rule) {
-            $category = substr($category, 17);
+            $category = Str\strip_prefix($category, 'pluralRule-count-');
 
             if ($category === 'other') {
                 continue;
             }
 
-            if (str_contains($rule, '@')) {
-                $rule = strstr($rule, '@', true) ?: throw new Exception();
-            }
+            $rule = Str\before($rule, '@') ?? $rule;
 
             $asts[$category] = $this->llk->parse($rule);
         }
@@ -55,7 +55,7 @@ final class RuleCompiler
      */
     private function compileRules(array $rules): string
     {
-        if (! $rules) {
+        if ($rules === []) {
             return "<?php\n\nreturn [];\n";
         }
 
@@ -95,24 +95,24 @@ final class RuleCompiler
             }
         }
 
-        $operands = array_unique($operands);
-        $operators = array_unique($operators);
+        /** @var list<string> $operands */
+        $operands = $operands;
 
-        sort($operands);
-        sort($operators);
+        $operands = Vec\sort(Dict\unique_scalar($operands));
+        $operators = Vec\sort(Dict\unique_scalar($operators));
 
         $operands = match (count($operands)) {
             1 => "use function Major\\PluralRules\\Operands\\{$operands[0]};",
-            default => 'use function Major\\PluralRules\\Operands\\{' . implode(', ', $operands) . '};',
+            default => 'use function Major\\PluralRules\\Operands\\{' . Str\join($operands, ', ') . '};',
         };
 
         $operators = match (count($operators)) {
             0 => '',
             1 => "use function Major\\PluralRules\\Operators\\{$operators[0]};",
-            default => 'use function Major\\PluralRules\\Operators\\{' . implode(', ', $operators) . '};',
+            default => 'use function Major\\PluralRules\\Operators\\{' . Str\join($operators, ', ') . '};',
         };
 
-        return trim($operands . "\n" . $operators);
+        return Str\trim($operands . "\n" . $operators);
     }
 
     private function compileRule(TreeNode $rule): string
