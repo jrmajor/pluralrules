@@ -31,5 +31,5 @@ jobs:
           php gen rules
           php gen tests
 
-      - name: Check for uncommited changes
+      - name: Check for uncommitted changes
         run: git add . && git diff --cached --exit-code
