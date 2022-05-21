@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8b358bb403796e2ae7d3d33ba254ca66",
+    "content-hash": "156899c58f036ac459e3acd70db6860b",
     "packages": [],
     "packages-dev": [
         {
@@ -1625,27 +1625,28 @@
         },
         {
             "name": "jrmajor/cs",
-            "version": "v0.3.4",
+            "version": "v0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jrmajor/php-cs.git",
-                "reference": "8a622d445a25080a084e020e484feb2fbb6fd8a1"
+                "reference": "fd1dec7cd69b540490b1ef8f47e37ab1aa90c598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jrmajor/php-cs/zipball/8a622d445a25080a084e020e484feb2fbb6fd8a1",
-                "reference": "8a622d445a25080a084e020e484feb2fbb6fd8a1",
+                "url": "https://api.github.com/repos/jrmajor/php-cs/zipball/fd1dec7cd69b540490b1ef8f47e37ab1aa90c598",
+                "reference": "fd1dec7cd69b540490b1ef8f47e37ab1aa90c598",
                 "shasum": ""
             },
             "require": {
-                "friendsofphp/php-cs-fixer": "^3.7",
-                "kubawerlos/php-cs-fixer-custom-fixers": "^3.1",
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "kubawerlos/php-cs-fixer-custom-fixers": "^3.11",
                 "php": ">= 7.4"
             },
             "type": "library",
             "autoload": {
                 "files": [
-                    "helpers.php"
+                    "helpers.php",
+                    "internal.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1662,9 +1663,9 @@
             "homepage": "https://github.com/jrmajor/php-cs",
             "support": {
                 "issues": "https://github.com/jrmajor/php-cs/issues",
-                "source": "https://github.com/jrmajor/php-cs/tree/v0.3.4"
+                "source": "https://github.com/jrmajor/php-cs/tree/v0.4.1"
             },
-            "time": "2022-03-11T21:27:08+00:00"
+            "time": "2022-05-21T20:18:29+00:00"
         },
         {
             "name": "kubawerlos/php-cs-fixer-custom-fixers",

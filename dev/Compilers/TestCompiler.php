@@ -45,7 +45,7 @@ final class TestCompiler
             $asts[$category] = $this->llk->parse($samples);
         }
 
-        $filename = implode(array_map(
+        $filename = implode('', array_map(
             fn ($p) => ucfirst(strtolower($p)),
             explode('-', $this->locale),
         )) . 'Test';
