@@ -13,6 +13,7 @@ test('other', function ($num) {
     $category = PluralRules::select('ji', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     2,
     16,
     100,

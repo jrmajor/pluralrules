@@ -17,6 +17,7 @@ test('few', function ($num) {
     $category = PluralRules::select('mt', $num);
     expect($category)->toBe('few');
 })->with([
+    0,
     2,
     10,
     102,

@@ -17,6 +17,7 @@ test('other', function ($num) {
     $category = PluralRules::select('ce', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     2,
     16,
     100,

@@ -76,6 +76,7 @@ test('other', function ($num) {
     $category = PluralRules::select('ga', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     11,
     25,
     100,

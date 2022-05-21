@@ -6,6 +6,7 @@ test('other', function ($num) {
     $category = PluralRules::select('ig', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     15,
     100,
     1000,

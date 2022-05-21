@@ -104,7 +104,7 @@ final class TestCompiler
             }
         }
 
-        return array_filter($output);
+        return Vec\filter_nulls($output);
     }
 
     private function compileValue(TreeNode $value): ?string

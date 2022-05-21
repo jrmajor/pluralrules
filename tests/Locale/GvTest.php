@@ -38,6 +38,7 @@ test('few', function ($num) {
     $category = PluralRules::select('gv', $num);
     expect($category)->toBe('few');
 })->with([
+    0,
     20,
     40,
     60,

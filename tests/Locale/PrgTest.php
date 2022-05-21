@@ -6,6 +6,7 @@ test('zero', function ($num) {
     $category = PluralRules::select('prg', $num);
     expect($category)->toBe('zero');
 })->with([
+    0,
     10,
     20,
     30,

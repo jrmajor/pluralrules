@@ -95,6 +95,7 @@ test('other', function ($num) {
     $category = PluralRules::select('br', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     5,
     8,
     10,

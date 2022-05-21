@@ -6,6 +6,7 @@ test('zero', function ($num) {
     $category = PluralRules::select('lag', $num);
     expect($category)->toBe('zero');
 })->with([
+    0,
     0.0,
     '0.00',
     '0.000',

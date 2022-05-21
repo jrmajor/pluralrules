@@ -28,6 +28,7 @@ test('other', function ($num) {
     $category = PluralRules::select('smj', $num);
     expect($category)->toBe('other');
 })->with([
+    0,
     3,
     17,
     100,

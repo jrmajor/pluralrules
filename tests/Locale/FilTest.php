@@ -6,6 +6,7 @@ test('one', function ($num) {
     $category = PluralRules::select('fil', $num);
     expect($category)->toBe('one');
 })->with([
+    0,
     3,
     5,
     7,

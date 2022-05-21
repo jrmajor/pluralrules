@@ -41,6 +41,7 @@ test('many', function ($num) {
     $category = PluralRules::select('uk', $num);
     expect($category)->toBe('many');
 })->with([
+    0,
     5,
     19,
     100,
