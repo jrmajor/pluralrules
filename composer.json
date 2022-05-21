@@ -33,7 +33,8 @@
         "pestphp/pest": "^1.21",
         "phpstan/phpstan": "^1.3",
         "symfony/console": "^5.4",
-        "symfony/var-dumper": "^5.4"
+        "symfony/var-dumper": "^5.4",
+        "vaimo/composer-patches": "^5.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -57,7 +58,13 @@
     },
     "config": {
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "vaimo/composer-patches": true
+        }
+    },
+    "extra": {
+        "patcher": {
+            "search": "patches"
         }
     }
 }

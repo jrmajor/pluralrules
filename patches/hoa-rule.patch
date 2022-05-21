@@ -1,0 +1,16 @@
+@package hoa/compiler
+
+--- Llk/Rule/Rule.php
++++ Llk/Rule/Rule.php
+@@ -118,7 +118,10 @@
+     {
+         $this->setName($name);
+         $this->setChildren($children);
+-        $this->setNodeId($nodeId);
++
++        if ($nodeId !== null) {
++            $this->setNodeId($nodeId);
++        }
+
+         return;
+     }
