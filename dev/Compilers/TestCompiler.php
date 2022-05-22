@@ -14,6 +14,8 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\PsrPrinter;
 use Psl\Str;
 use Psl\Vec;
 
@@ -45,26 +47,47 @@ final class TestCompiler
             $asts[$category] = $this->llk->parse('@' . $samples);
         }
 
-        $filename = Str\join(Vec\map(
+        $name = Str\join(Vec\map(
             Str\split($this->locale, '-'),
             fn ($p) => ucfirst(Str\lowercase($p)),
         ), '') . 'Test';
 
-        LocaleFiles::write('tests', $filename, $this->compileTests($this->locale, $asts));
+        $compiled = $this->compileTests($this->locale, $name, $asts);
+
+        LocaleFiles::write('tests', $name, $compiled);
     }
 
     /**
      * @param array<string, TreeNode> $samples
      */
-    private function compileTests(string $locale, array $samples): string
+    private function compileTests(string $locale, string $name, array $samples): string
     {
         if ($samples === []) {
             throw new Exception('No samples!');
         }
 
-        $compiled = "<?php\n\nuse Major\\PluralRules\\PluralRules;\n";
+        $namespace = new PhpNamespace('Major\\PluralRules\\Tests\\Locale');
+
+        $namespace->addUse(\Major\PluralRules\PluralRules::class);
+        $namespace->addUse(\PHPUnit\Framework\TestCase::class);
+
+        $class = $namespace
+            ->addClass($name)
+            ->setFinal()
+            ->setExtends(\PHPUnit\Framework\TestCase::class);
 
         foreach ($samples as $category => $sampleList) {
+            $providerName = 'provide' . ucfirst($category) . 'Cases';
+
+            $body = "\$category = PluralRules::select('{$locale}', \$num);\n";
+            $body .= "\$this->assertSame('{$category}', \$category);";
+
+            $test = $class->addMethod('test' . ucfirst($category))
+                ->addComment("@dataProvider {$providerName}")
+                ->setBody($body);
+
+            $test->addParameter('num')->setType('int|float|string');
+
             $sampleList = Vec\map(
                 $this->compileSamples($sampleList),
                 fn (string $sample) => "    {$sample},",
@@ -72,17 +95,11 @@ final class TestCompiler
 
             $sampleList = Str\join($sampleList, "\n");
 
-            $compiled .= "\n" . <<<PHP
-                test('{$category}', function (\$num) {
-                    \$category = PluralRules::select('{$locale}', \$num);
-                    expect(\$category)->toBe('{$category}');
-                })->with([
-                {$sampleList}
-                ]);
-                PHP . "\n";
+            $provider = $class->addMethod($providerName)
+                ->setBody("return [\n{$sampleList}\n];");
         }
 
-        return $compiled;
+        return "<?php\n\n" . (new PsrPrinter())->printNamespace($namespace);
     }
 
     /**
@@ -104,7 +121,10 @@ final class TestCompiler
             }
         }
 
-        return Vec\filter_nulls($output);
+        return Vec\map(
+            Vec\filter_nulls($output),
+            fn (string $s) => "[{$s}]",
+        );
     }
 
     private function compileValue(TreeNode $value): ?string

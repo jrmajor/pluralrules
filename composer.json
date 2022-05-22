@@ -29,6 +29,7 @@
         "azjezz/psl": "^1.9",
         "hoa/compiler": "~3.17",
         "jrmajor/cs": "^0.4.1",
+        "nette/php-generator": "^4.0",
         "nunomaduro/collision": "^6.2",
         "pestphp/pest": "^1.21",
         "phpstan/phpstan": "^1.6",
