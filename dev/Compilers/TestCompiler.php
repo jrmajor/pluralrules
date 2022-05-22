@@ -13,7 +13,7 @@ use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
-use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Major\PluralRules\Dev\Helpers as H;
 use Nette\PhpGenerator as Gen;
 use Psl\Str;
 use Psl\Vec;
@@ -46,14 +46,11 @@ final class TestCompiler
             $asts[$category] = $this->llk->parse('@' . $samples);
         }
 
-        $name = Str\join(Vec\map(
-            Str\split($this->locale, '-'),
-            fn ($p) => ucfirst(Str\lowercase($p)),
-        ), '') . 'Test';
+        $name = H\studly($this->locale, 'test');
 
         $compiled = $this->compileTests($this->locale, $name, $asts);
 
-        LocaleFiles::write('tests', $name, $compiled);
+        H\LocaleFiles::write('tests', $name, $compiled);
     }
 
     /**
@@ -93,9 +90,9 @@ final class TestCompiler
         string $category,
         array $samples,
     ): void {
-        $providerName = 'provide' . ucfirst($category) . 'Cases';
+        $providerName = H\camel('provide', $category, 'cases');
 
-        $test = $class->addMethod('test' . ucfirst($category))
+        $test = $class->addMethod(H\camel('test', $category))
             ->addComment("@dataProvider {$providerName}")
             ->setReturnType('void')
             ->addBody('$category = PluralRules::select(?, $num);', [$locale])

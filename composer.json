@@ -54,7 +54,7 @@
             "Major\\PluralRules\\Tests\\": "tests"
         },
         "files": [
-            "dev/helpers.php"
+            "dev/Helpers/helpers.php"
         ]
     },
     "config": {

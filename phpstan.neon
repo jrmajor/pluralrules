@@ -24,6 +24,10 @@ parameters:
             message: '#^Parameter \#1 \$samples of method Major\\PluralRules\\Dev\\Compilers\\TestCompiler::compileSamples\(\) expects Hoa\\Compiler\\Llk\\TreeNode, Hoa\\Compiler\\Llk\\TreeNode\|string given\.#'
             count: 1
             path: dev/Compilers/TestCompiler.php
+        -
+            message: '#Parameter \#1 \$pieces of function Psl\\Str\\join expects array<int, string>, array<int\|string, string> given\.#'
+            count: 1
+            path: dev/Helpers/helpers.php
 
     tmpDir: .cache/phpstan
 

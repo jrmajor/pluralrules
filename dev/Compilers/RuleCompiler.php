@@ -12,7 +12,7 @@ namespace Major\PluralRules\Dev\Compilers;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
-use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Major\PluralRules\Dev\Helpers as H;
 use Psl\Dict;
 use Psl\Str;
 use Psl\Vec;
@@ -47,7 +47,7 @@ final class RuleCompiler
             $asts[$category] = $this->llk->parse($rule);
         }
 
-        LocaleFiles::write('rules', $this->locale, $this->compileRules($asts));
+        H\LocaleFiles::write('rules', $this->locale, $this->compileRules($asts));
     }
 
     /**
