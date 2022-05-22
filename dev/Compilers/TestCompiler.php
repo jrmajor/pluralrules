@@ -14,7 +14,7 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
-use Nette\PhpGenerator\PhpNamespace;
+use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PsrPrinter;
 use Psl\Str;
 use Psl\Vec;
@@ -66,21 +66,21 @@ final class TestCompiler
             throw new Exception('No samples!');
         }
 
-        $namespace = new PhpNamespace('Major\\PluralRules\\Tests\\Locale');
+        $file = new PhpFile();
 
-        $namespace->addUse(\Major\PluralRules\PluralRules::class);
-        $namespace->addUse(\PHPUnit\Framework\TestCase::class);
+        $namespace = $file->addNamespace('Major\\PluralRules\\Tests\\Locale')
+            ->addUse(\Major\PluralRules\PluralRules::class)
+            ->addUse(\PHPUnit\Framework\TestCase::class);
 
-        $class = $namespace
-            ->addClass($name)
+        $class = $namespace->addClass($name)
             ->setFinal()
             ->setExtends(\PHPUnit\Framework\TestCase::class);
 
         foreach ($samples as $category => $sampleList) {
             $providerName = 'provide' . ucfirst($category) . 'Cases';
 
-            $body = "\$category = PluralRules::select('{$locale}', \$num);\n";
-            $body .= "\$this->assertSame('{$category}', \$category);";
+            $body = "\$category = PluralRules::select('{$locale}', \$num);\n"
+                . "\$this->assertSame('{$category}', \$category);";
 
             $test = $class->addMethod('test' . ucfirst($category))
                 ->addComment("@dataProvider {$providerName}")
@@ -102,7 +102,7 @@ final class TestCompiler
                 ->setBody("return [\n{$sampleList}\n];");
         }
 
-        return "<?php\n\n" . (new PsrPrinter())->printNamespace($namespace);
+        return (new PsrPrinter())->printFile($file);
     }
 
     /**
