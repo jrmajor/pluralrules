@@ -20,7 +20,7 @@ Before running it, you would need to run `yarn install` to download [`cldr-core`
 ## Testing
 
 ```sh
-vendor/bin/pest              # Tests
+vendor/bin/phpunit           # Tests
 vendor/bin/phpstan analyse   # Static analysis
 vendor/bin/php-cs-fixer fix  # Formatting
 ```

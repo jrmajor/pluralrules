@@ -39,4 +39,4 @@ jobs:
         run: composer install --no-progress --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: vendor/bin/phpunit
