@@ -1,44 +1,77 @@
 <?php
 
+namespace Major\PluralRules\Tests\Locale;
+
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\TestCase;
 
-test('zero', function ($num) {
-    $category = PluralRules::select('lag', $num);
-    expect($category)->toBe('zero');
-})->with([
-    0,
-    0.0,
-    '0.00',
-    '0.000',
-    '0.0000',
-]);
+final class LagTest extends TestCase
+{
+    /**
+     * @dataProvider provideZeroCases
+     */
+    public function testZero(int|float|string $num)
+    {
+        $category = PluralRules::select('lag', $num);
+        $this->assertSame('zero', $category);
+    }
 
-test('one', function ($num) {
-    $category = PluralRules::select('lag', $num);
-    expect($category)->toBe('one');
-})->with([
-    1,
-    0.1,
-    1.6,
-]);
+    public function provideZeroCases()
+    {
+        return [
+            [0],
+            [0.0],
+            ['0.00'],
+            ['0.000'],
+            ['0.0000'],
+        ];
+    }
 
-test('other', function ($num) {
-    $category = PluralRules::select('lag', $num);
-    expect($category)->toBe('other');
-})->with([
-    2,
-    17,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    2.0,
-    3.5,
-    10.0,
-    100.0,
-    1000.0,
-    10000.0,
-    100000.0,
-    1000000.0,
-]);
+    /**
+     * @dataProvider provideOneCases
+     */
+    public function testOne(int|float|string $num)
+    {
+        $category = PluralRules::select('lag', $num);
+        $this->assertSame('one', $category);
+    }
+
+    public function provideOneCases()
+    {
+        return [
+            [1],
+            [0.1],
+            [1.6],
+        ];
+    }
+
+    /**
+     * @dataProvider provideOtherCases
+     */
+    public function testOther(int|float|string $num)
+    {
+        $category = PluralRules::select('lag', $num);
+        $this->assertSame('other', $category);
+    }
+
+    public function provideOtherCases()
+    {
+        return [
+            [2],
+            [17],
+            [100],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+            [2.0],
+            [3.5],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
+        ];
+    }
+}

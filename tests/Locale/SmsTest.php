@@ -1,49 +1,82 @@
 <?php
 
+namespace Major\PluralRules\Tests\Locale;
+
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\TestCase;
 
-test('one', function ($num) {
-    $category = PluralRules::select('sms', $num);
-    expect($category)->toBe('one');
-})->with([
-    1,
-    1.0,
-    '1.00',
-    '1.000',
-    '1.0000',
-]);
+final class SmsTest extends TestCase
+{
+    /**
+     * @dataProvider provideOneCases
+     */
+    public function testOne(int|float|string $num)
+    {
+        $category = PluralRules::select('sms', $num);
+        $this->assertSame('one', $category);
+    }
 
-test('two', function ($num) {
-    $category = PluralRules::select('sms', $num);
-    expect($category)->toBe('two');
-})->with([
-    2,
-    2.0,
-    '2.00',
-    '2.000',
-    '2.0000',
-]);
+    public function provideOneCases()
+    {
+        return [
+            [1],
+            [1.0],
+            ['1.00'],
+            ['1.000'],
+            ['1.0000'],
+        ];
+    }
 
-test('other', function ($num) {
-    $category = PluralRules::select('sms', $num);
-    expect($category)->toBe('other');
-})->with([
-    0,
-    3,
-    17,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    0.0,
-    0.9,
-    1.1,
-    1.6,
-    10.0,
-    100.0,
-    1000.0,
-    10000.0,
-    100000.0,
-    1000000.0,
-]);
+    /**
+     * @dataProvider provideTwoCases
+     */
+    public function testTwo(int|float|string $num)
+    {
+        $category = PluralRules::select('sms', $num);
+        $this->assertSame('two', $category);
+    }
+
+    public function provideTwoCases()
+    {
+        return [
+            [2],
+            [2.0],
+            ['2.00'],
+            ['2.000'],
+            ['2.0000'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideOtherCases
+     */
+    public function testOther(int|float|string $num)
+    {
+        $category = PluralRules::select('sms', $num);
+        $this->assertSame('other', $category);
+    }
+
+    public function provideOtherCases()
+    {
+        return [
+            [0],
+            [3],
+            [17],
+            [100],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+            [0.0],
+            [0.9],
+            [1.1],
+            [1.6],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
+        ];
+    }
+}

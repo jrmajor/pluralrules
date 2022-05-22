@@ -1,24 +1,39 @@
 <?php
 
-use Major\PluralRules\PluralRules;
+namespace Major\PluralRules\Tests\Locale;
 
-test('other', function ($num) {
-    $category = PluralRules::select('ms', $num);
-    expect($category)->toBe('other');
-})->with([
-    0,
-    15,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    0.0,
-    1.5,
-    10.0,
-    100.0,
-    1000.0,
-    10000.0,
-    100000.0,
-    1000000.0,
-]);
+use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\TestCase;
+
+final class MsTest extends TestCase
+{
+    /**
+     * @dataProvider provideOtherCases
+     */
+    public function testOther(int|float|string $num)
+    {
+        $category = PluralRules::select('ms', $num);
+        $this->assertSame('other', $category);
+    }
+
+    public function provideOtherCases()
+    {
+        return [
+            [0],
+            [15],
+            [100],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+            [0.0],
+            [1.5],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
+        ];
+    }
+}

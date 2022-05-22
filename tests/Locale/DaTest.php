@@ -1,35 +1,59 @@
 <?php
 
+namespace Major\PluralRules\Tests\Locale;
+
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\TestCase;
 
-test('one', function ($num) {
-    $category = PluralRules::select('da', $num);
-    expect($category)->toBe('one');
-})->with([
-    1,
-    0.1,
-    1.6,
-]);
+final class DaTest extends TestCase
+{
+    /**
+     * @dataProvider provideOneCases
+     */
+    public function testOne(int|float|string $num)
+    {
+        $category = PluralRules::select('da', $num);
+        $this->assertSame('one', $category);
+    }
 
-test('other', function ($num) {
-    $category = PluralRules::select('da', $num);
-    expect($category)->toBe('other');
-})->with([
-    0,
-    2,
-    16,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    0.0,
-    2.0,
-    3.4,
-    10.0,
-    100.0,
-    1000.0,
-    10000.0,
-    100000.0,
-    1000000.0,
-]);
+    public function provideOneCases()
+    {
+        return [
+            [1],
+            [0.1],
+            [1.6],
+        ];
+    }
+
+    /**
+     * @dataProvider provideOtherCases
+     */
+    public function testOther(int|float|string $num)
+    {
+        $category = PluralRules::select('da', $num);
+        $this->assertSame('other', $category);
+    }
+
+    public function provideOtherCases()
+    {
+        return [
+            [0],
+            [2],
+            [16],
+            [100],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+            [0.0],
+            [2.0],
+            [3.4],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
+        ];
+    }
+}

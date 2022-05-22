@@ -1,80 +1,131 @@
 <?php
 
+namespace Major\PluralRules\Tests\Locale;
+
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\TestCase;
 
-test('one', function ($num) {
-    $category = PluralRules::select('gv', $num);
-    expect($category)->toBe('one');
-})->with([
-    1,
-    11,
-    21,
-    31,
-    41,
-    51,
-    61,
-    71,
-    101,
-    1001,
-]);
+final class GvTest extends TestCase
+{
+    /**
+     * @dataProvider provideOneCases
+     */
+    public function testOne(int|float|string $num)
+    {
+        $category = PluralRules::select('gv', $num);
+        $this->assertSame('one', $category);
+    }
 
-test('two', function ($num) {
-    $category = PluralRules::select('gv', $num);
-    expect($category)->toBe('two');
-})->with([
-    2,
-    12,
-    22,
-    32,
-    42,
-    52,
-    62,
-    72,
-    102,
-    1002,
-]);
+    public function provideOneCases()
+    {
+        return [
+            [1],
+            [11],
+            [21],
+            [31],
+            [41],
+            [51],
+            [61],
+            [71],
+            [101],
+            [1001],
+        ];
+    }
 
-test('few', function ($num) {
-    $category = PluralRules::select('gv', $num);
-    expect($category)->toBe('few');
-})->with([
-    0,
-    20,
-    40,
-    60,
-    80,
-    100,
-    120,
-    140,
-    1000,
-    10000,
-    100000,
-    1000000,
-]);
+    /**
+     * @dataProvider provideTwoCases
+     */
+    public function testTwo(int|float|string $num)
+    {
+        $category = PluralRules::select('gv', $num);
+        $this->assertSame('two', $category);
+    }
 
-test('many', function ($num) {
-    $category = PluralRules::select('gv', $num);
-    expect($category)->toBe('many');
-})->with([
-    0.0,
-    1.5,
-    10.0,
-    100.0,
-    1000.0,
-    10000.0,
-    100000.0,
-    1000000.0,
-]);
+    public function provideTwoCases()
+    {
+        return [
+            [2],
+            [12],
+            [22],
+            [32],
+            [42],
+            [52],
+            [62],
+            [72],
+            [102],
+            [1002],
+        ];
+    }
 
-test('other', function ($num) {
-    $category = PluralRules::select('gv', $num);
-    expect($category)->toBe('other');
-})->with([
-    3,
-    10,
-    13,
-    19,
-    23,
-    103,
-    1003,
-]);
+    /**
+     * @dataProvider provideFewCases
+     */
+    public function testFew(int|float|string $num)
+    {
+        $category = PluralRules::select('gv', $num);
+        $this->assertSame('few', $category);
+    }
+
+    public function provideFewCases()
+    {
+        return [
+            [0],
+            [20],
+            [40],
+            [60],
+            [80],
+            [100],
+            [120],
+            [140],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+        ];
+    }
+
+    /**
+     * @dataProvider provideManyCases
+     */
+    public function testMany(int|float|string $num)
+    {
+        $category = PluralRules::select('gv', $num);
+        $this->assertSame('many', $category);
+    }
+
+    public function provideManyCases()
+    {
+        return [
+            [0.0],
+            [1.5],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
+        ];
+    }
+
+    /**
+     * @dataProvider provideOtherCases
+     */
+    public function testOther(int|float|string $num)
+    {
+        $category = PluralRules::select('gv', $num);
+        $this->assertSame('other', $category);
+    }
+
+    public function provideOtherCases()
+    {
+        return [
+            [3],
+            [10],
+            [13],
+            [19],
+            [23],
+            [103],
+            [1003],
+        ];
+    }
+}
