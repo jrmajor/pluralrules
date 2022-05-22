@@ -14,8 +14,7 @@ use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
-use Nette\PhpGenerator\PhpFile;
-use Nette\PhpGenerator\PsrPrinter;
+use Nette\PhpGenerator as Gen;
 use Psl\Str;
 use Psl\Vec;
 
@@ -66,7 +65,7 @@ final class TestCompiler
             throw new Exception('No samples!');
         }
 
-        $file = new PhpFile();
+        $file = new Gen\PhpFile();
 
         $namespace = $file->addNamespace('Major\\PluralRules\\Tests\\Locale')
             ->addUse(\Major\PluralRules\PluralRules::class)
@@ -77,32 +76,40 @@ final class TestCompiler
             ->setExtends(\PHPUnit\Framework\TestCase::class);
 
         foreach ($samples as $category => $sampleList) {
-            $providerName = 'provide' . ucfirst($category) . 'Cases';
+            $samples = $this->compileSamples($sampleList);
 
-            $body = "\$category = PluralRules::select('{$locale}', \$num);\n"
-                . "\$this->assertSame('{$category}', \$category);";
-
-            $test = $class->addMethod('test' . ucfirst($category))
-                ->addComment("@dataProvider {$providerName}")
-                ->setReturnType('void')
-                ->setBody($body);
-
-            $test->addParameter('num')->setType('int|float|string');
-
-            $sampleList = Vec\map(
-                $this->compileSamples($sampleList),
-                fn (string $sample) => "    {$sample},",
-            );
-
-            $sampleList = Str\join($sampleList, "\n");
-
-            $class->addMethod($providerName)
-                ->setComment('@return list<array{int|float|string}>')
-                ->setReturnType('array')
-                ->setBody("return [\n{$sampleList}\n];");
+            $this->compileTest($class, $locale, $category, $samples);
         }
 
-        return (new PsrPrinter())->printFile($file);
+        return (new Gen\PsrPrinter())->printFile($file);
+    }
+
+    /**
+     * @param list<string> $samples
+     */
+    public function compileTest(
+        Gen\ClassType $class,
+        string $locale,
+        string $category,
+        array $samples,
+    ): void {
+        $providerName = 'provide' . ucfirst($category) . 'Cases';
+
+        $test = $class->addMethod('test' . ucfirst($category))
+            ->addComment("@dataProvider {$providerName}")
+            ->setReturnType('void')
+            ->addBody('$category = PluralRules::select(?, $num);', [$locale])
+            ->addBody('$this->assertSame(?, $category);', [$category]);
+
+        $test->addParameter('num')->setType('int|float|string');
+
+        $samples = Vec\map($samples, fn (string $sample) => "    {$sample},");
+        $samples = Str\join($samples, "\n");
+
+        $class->addMethod($providerName)
+            ->addComment('@return list<array{int|float|string}>')
+            ->setReturnType('array')
+            ->addBody("return [\n{$samples}\n];");
     }
 
     /**
