@@ -84,6 +84,7 @@ final class TestCompiler
 
             $test = $class->addMethod('test' . ucfirst($category))
                 ->addComment("@dataProvider {$providerName}")
+                ->setReturnType('void')
                 ->setBody($body);
 
             $test->addParameter('num')->setType('int|float|string');
@@ -95,7 +96,9 @@ final class TestCompiler
 
             $sampleList = Str\join($sampleList, "\n");
 
-            $provider = $class->addMethod($providerName)
+            $class->addMethod($providerName)
+                ->setComment('@return list<array{int|float|string}>')
+                ->setReturnType('array')
                 ->setBody("return [\n{$sampleList}\n];");
         }
 

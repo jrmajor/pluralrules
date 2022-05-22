@@ -10,13 +10,16 @@ final class TlTest extends TestCase
     /**
      * @dataProvider provideOneCases
      */
-    public function testOne(int|float|string $num)
+    public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('tl', $num);
         $this->assertSame('one', $category);
     }
 
-    public function provideOneCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOneCases(): array
     {
         return [
             [0],
@@ -60,13 +63,16 @@ final class TlTest extends TestCase
     /**
      * @dataProvider provideOtherCases
      */
-    public function testOther(int|float|string $num)
+    public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('tl', $num);
         $this->assertSame('other', $category);
     }
 
-    public function provideOtherCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOtherCases(): array
     {
         return [
             [4],

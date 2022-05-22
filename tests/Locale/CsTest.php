@@ -10,13 +10,16 @@ final class CsTest extends TestCase
     /**
      * @dataProvider provideOneCases
      */
-    public function testOne(int|float|string $num)
+    public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('cs', $num);
         $this->assertSame('one', $category);
     }
 
-    public function provideOneCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOneCases(): array
     {
         return [
             [1],
@@ -26,13 +29,16 @@ final class CsTest extends TestCase
     /**
      * @dataProvider provideFewCases
      */
-    public function testFew(int|float|string $num)
+    public function testFew(int|float|string $num): void
     {
         $category = PluralRules::select('cs', $num);
         $this->assertSame('few', $category);
     }
 
-    public function provideFewCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideFewCases(): array
     {
         return [
             [2],
@@ -43,13 +49,16 @@ final class CsTest extends TestCase
     /**
      * @dataProvider provideManyCases
      */
-    public function testMany(int|float|string $num)
+    public function testMany(int|float|string $num): void
     {
         $category = PluralRules::select('cs', $num);
         $this->assertSame('many', $category);
     }
 
-    public function provideManyCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideManyCases(): array
     {
         return [
             [0.0],
@@ -66,13 +75,16 @@ final class CsTest extends TestCase
     /**
      * @dataProvider provideOtherCases
      */
-    public function testOther(int|float|string $num)
+    public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('cs', $num);
         $this->assertSame('other', $category);
     }
 
-    public function provideOtherCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOtherCases(): array
     {
         return [
             [0],

@@ -10,13 +10,16 @@ final class BoTest extends TestCase
     /**
      * @dataProvider provideOtherCases
      */
-    public function testOther(int|float|string $num)
+    public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('bo', $num);
         $this->assertSame('other', $category);
     }
 
-    public function provideOtherCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOtherCases(): array
     {
         return [
             [0],

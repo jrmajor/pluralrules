@@ -10,13 +10,16 @@ final class FrTest extends TestCase
     /**
      * @dataProvider provideOneCases
      */
-    public function testOne(int|float|string $num)
+    public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('fr', $num);
         $this->assertSame('one', $category);
     }
 
-    public function provideOneCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOneCases(): array
     {
         return [
             [0],
@@ -29,13 +32,16 @@ final class FrTest extends TestCase
     /**
      * @dataProvider provideManyCases
      */
-    public function testMany(int|float|string $num)
+    public function testMany(int|float|string $num): void
     {
         $category = PluralRules::select('fr', $num);
         $this->assertSame('many', $category);
     }
 
-    public function provideManyCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideManyCases(): array
     {
         return [
             [1000000],
@@ -45,13 +51,16 @@ final class FrTest extends TestCase
     /**
      * @dataProvider provideOtherCases
      */
-    public function testOther(int|float|string $num)
+    public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('fr', $num);
         $this->assertSame('other', $category);
     }
 
-    public function provideOtherCases()
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOtherCases(): array
     {
         return [
             [2],
