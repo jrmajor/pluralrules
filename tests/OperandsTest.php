@@ -12,8 +12,15 @@ final class OperandsTest extends TestCase
     /**
      * @dataProvider provideOperandCases
      */
-    public function testItCanComputeOperands($source, $n, $i, $v, $w, $f, $t): void
-    {
+    public function testItCanComputeOperands(
+        string $source,
+        float $n,
+        int $i,
+        int $v,
+        int $w,
+        int $f,
+        int $t,
+    ): void {
         $this->assertSame($n, n($source));
         $this->assertSame($i, i($source));
         $this->assertSame($v, v($source));
