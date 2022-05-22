@@ -14,6 +14,7 @@ use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers as H;
 use Psl\Dict;
+use Psl\Iter;
 use Psl\Str;
 use Psl\Vec;
 
@@ -117,19 +118,15 @@ final class RuleCompiler
 
     private function compileRule(TreeNode $rule): string
     {
-        $output = '';
-
-        foreach ($rule->getChildren() as $part) {
-            $output .= match (
-                $part->getValueToken() ?? $part->getId()
-            ) {
+        $reducer = function (string $acc, TreeNode $part) {
+            return $acc . match ($part->getValueToken() ?? $part->getId()) {
                 '#relation' => $this->compileRelation($part),
                 'and' => ' && ',
                 'or' => ' || ',
             };
-        }
+        };
 
-        return $output;
+        return Iter\reduce($rule->getChildren(), $reducer, '');
     }
 
     private function compileRelation(TreeNode $relation): string
