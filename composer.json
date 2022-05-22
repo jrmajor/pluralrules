@@ -31,8 +31,8 @@
         "jrmajor/cs": "^0.4.1",
         "nette/php-generator": "^4.0",
         "nunomaduro/collision": "^6.2",
-        "pestphp/pest": "^1.21",
         "phpstan/phpstan": "^1.6",
+        "phpunit/phpunit": "^9.5",
         "symfony/console": "^6.0",
         "symfony/var-dumper": "^6.0",
         "vaimo/composer-patches": "^5.0"
