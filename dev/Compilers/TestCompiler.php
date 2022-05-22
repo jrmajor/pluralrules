@@ -13,6 +13,7 @@ use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
+use Major\Exporter as E;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PsrPrinter;
@@ -91,22 +92,22 @@ final class TestCompiler
 
             $sampleList = Vec\map(
                 $this->compileSamples($sampleList),
-                fn (string $sample) => "    {$sample},",
+                fn ($s) => E\guess([$s]),
             );
 
-            $sampleList = Str\join($sampleList, "\n");
+            $sampleList = E\vec($sampleList)->multiline();
 
             $class->addMethod($providerName)
                 ->setComment('@return list<array{int|float|string}>')
                 ->setReturnType('array')
-                ->setBody("return [\n{$sampleList}\n];");
+                ->setBody("return {$sampleList};");
         }
 
         return (new PsrPrinter())->printFile($file);
     }
 
     /**
-     * @return string[]
+     * @return list<int|float|string>
      */
     private function compileSamples(TreeNode $samples): array
     {
@@ -124,13 +125,10 @@ final class TestCompiler
             }
         }
 
-        return Vec\map(
-            Vec\filter_nulls($output),
-            fn (string $s) => "[{$s}]",
-        );
+        return Vec\filter_nulls($output);
     }
 
-    private function compileValue(TreeNode $value): ?string
+    private function compileValue(TreeNode $value): int|float|string|null
     {
         $value = $value->getValueValue();
 
@@ -138,13 +136,14 @@ final class TestCompiler
             return null;
         }
 
-        if (
-            Str\contains($value, '.')
-            && (Str\ends_with($value, '0') && ! Str\ends_with($value, '.0'))
-        ) {
-            return "'{$value}'";
+        if (! Str\contains($value, '.')) {
+            return (int) $value;
         }
 
-        return $value;
+        if (Str\ends_with($value, '0') && ! Str\ends_with($value, '.0')) {
+            return $value;
+        }
+
+        return (float) $value;
     }
 }
