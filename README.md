@@ -6,7 +6,15 @@
 A PHP package for identifying the plural category, according to [CLDR](https://github.com/unicode-cldr/cldr-core/blob/master/supplemental/plurals.json), for a given number.
 
 ```php
-Major\PluralRules\PluralRules::select('pl', 42); // 'few'
+Major\PluralRules\PluralRules::select('en', 1);   // 'one'
+Major\PluralRules\PluralRules::select('en', 2);   // 'other'
+```
+
+```php
+Major\PluralRules\PluralRules::select('pl', 1);   // 'one'
+Major\PluralRules\PluralRules::select('pl', 42);  // 'few'
+Major\PluralRules\PluralRules::select('pl', 45);  // 'many'
+Major\PluralRules\PluralRules::select('pl', 1.5); // 'other'
 ```
 
 You may install it via composer: `composer require jrmajor/pluralrules`.
