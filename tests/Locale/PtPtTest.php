@@ -27,6 +27,25 @@ final class PtPtTest extends TestCase
     }
 
     /**
+     * @dataProvider provideManyCases
+     */
+    public function testMany(int|float|string $num): void
+    {
+        $category = PluralRules::select('pt-PT', $num);
+        $this->assertSame('many', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideManyCases(): array
+    {
+        return [
+            [1000000],
+        ];
+    }
+
+    /**
      * @dataProvider provideOtherCases
      */
     public function testOther(int|float|string $num): void
@@ -48,7 +67,6 @@ final class PtPtTest extends TestCase
             [1000],
             [10000],
             [100000],
-            [1000000],
             [0.0],
             [1.5],
             [10.0],

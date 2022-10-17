@@ -23,7 +23,7 @@ final class CldrData
             Type\dict(Type\string(), Type\string()),
         )->assert($rules);
 
-        unset($rules['root']);
+        unset($rules['und']);
 
         return $rules;
     }

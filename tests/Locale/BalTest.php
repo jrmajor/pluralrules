@@ -5,14 +5,37 @@ namespace Major\PluralRules\Tests\Locale;
 use Major\PluralRules\PluralRules;
 use PHPUnit\Framework\TestCase;
 
-final class InTest extends TestCase
+final class BalTest extends TestCase
 {
+    /**
+     * @dataProvider provideOneCases
+     */
+    public function testOne(int|float|string $num): void
+    {
+        $category = PluralRules::select('bal', $num);
+        $this->assertSame('one', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideOneCases(): array
+    {
+        return [
+            [1],
+            [1.0],
+            ['1.00'],
+            ['1.000'],
+            ['1.0000'],
+        ];
+    }
+
     /**
      * @dataProvider provideOtherCases
      */
     public function testOther(int|float|string $num): void
     {
-        $category = PluralRules::select('in', $num);
+        $category = PluralRules::select('bal', $num);
         $this->assertSame('other', $category);
     }
 
@@ -23,14 +46,17 @@ final class InTest extends TestCase
     {
         return [
             [0],
-            [15],
+            [2],
+            [16],
             [100],
             [1000],
             [10000],
             [100000],
             [1000000],
             [0.0],
-            [1.5],
+            [0.9],
+            [1.1],
+            [1.6],
             [10.0],
             [100.0],
             [1000.0],

@@ -5,33 +5,14 @@ namespace Major\PluralRules\Tests\Locale;
 use Major\PluralRules\PluralRules;
 use PHPUnit\Framework\TestCase;
 
-final class JiTest extends TestCase
+final class TpiTest extends TestCase
 {
-    /**
-     * @dataProvider provideOneCases
-     */
-    public function testOne(int|float|string $num): void
-    {
-        $category = PluralRules::select('ji', $num);
-        $this->assertSame('one', $category);
-    }
-
-    /**
-     * @return list<array{int|float|string}>
-     */
-    public function provideOneCases(): array
-    {
-        return [
-            [1],
-        ];
-    }
-
     /**
      * @dataProvider provideOtherCases
      */
     public function testOther(int|float|string $num): void
     {
-        $category = PluralRules::select('ji', $num);
+        $category = PluralRules::select('tpi', $num);
         $this->assertSame('other', $category);
     }
 
@@ -42,8 +23,7 @@ final class JiTest extends TestCase
     {
         return [
             [0],
-            [2],
-            [16],
+            [15],
             [100],
             [1000],
             [10000],
