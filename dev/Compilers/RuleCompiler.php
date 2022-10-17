@@ -141,15 +141,17 @@ final class RuleCompiler
 
         $expression = $this->compileExpression($relation->getChild(0));
 
+        $ranges = $relation->getChild(2)->getChildren();
         $compiled = '';
 
-        foreach ($relation->getChild(2)->getChildren() as $key => $range) {
+        foreach ($ranges as $key => $range) {
             if ($key !== 0) {
                 $compiled .= ' || ';
             }
 
             if ($range->getValueToken() === 'number') {
-                $compiled .= "{$expression} == {$range->getValueValue()}";
+                $operator = count($ranges) === 1 && $negated ? '!=' : '==';
+                $compiled .= "{$expression} {$operator} {$range->getValueValue()}";
 
                 continue;
             }
@@ -157,10 +159,15 @@ final class RuleCompiler
             $from = $range->getChild(0)->getValueValue();
             $to = $range->getChild(1)->getValueValue();
 
-            $compiled .= "in_range({$expression}, {$from}, {$to})";
+            $operator = count($ranges) === 1 && $negated ? '! ' : '';
+            $compiled .= "{$operator}in_range({$expression}, {$from}, {$to})";
         }
 
-        return ($negated ? '! (' : '(') . $compiled . ')';
+        if (count($ranges) === 1) {
+            return $compiled;
+        }
+
+        return ($negated ? '! ' : '') . "({$compiled})";
     }
 
     private function compileExpression(TreeNode $expression): string
