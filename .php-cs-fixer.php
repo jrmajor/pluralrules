@@ -6,7 +6,10 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreVCSIgnored(true);
 
 return Major\CS\config($finder, [
-    'single_import_per_statement' => false,
+    'no_unneeded_control_parentheses' => false,
     'phpdoc_summary' => false,
+    'single_import_per_statement' => [
+        'group_to_single_imports' => false,
+    ],
     'strict_comparison' => false,
 ])->setCacheFile('.cache/.php-cs-fixer.cache');
