@@ -35,7 +35,8 @@
         "phpunit/phpunit": "^9.5",
         "symfony/console": "^6.1",
         "symfony/var-dumper": "^6.1",
-        "vaimo/composer-patches": "^5.1"
+        "vaimo/composer-patches": "^5.1",
+        "php-standard-library/phpstan-extension": "^1.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

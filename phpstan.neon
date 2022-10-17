@@ -29,3 +29,4 @@ parameters:
 
 includes:
     - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+    - vendor/php-standard-library/phpstan-extension/extension.neon

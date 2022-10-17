@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Major\PluralRules\Dev\Compilers;
 
+use Exception;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
@@ -92,12 +93,10 @@ final class RuleCompiler
                     }
                 }
 
-                $operands[] = $child->getChild(0)->getChild(0)->getValueValue();
+                $operands[] = $child->getChild(0)->getChild(0)->getValueValue()
+                    ?? throw new Exception('Should not happen.');
             }
         }
-
-        /** @var list<string> $operands */
-        $operands = $operands;
 
         $operands = Vec\sort(Dict\unique_scalar($operands));
         $operators = Vec\sort(Dict\unique_scalar($operators));

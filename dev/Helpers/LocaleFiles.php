@@ -2,6 +2,7 @@
 
 namespace Major\PluralRules\Dev\Helpers;
 
+use Psl\File;
 use Psl\Filesystem;
 
 /**
@@ -25,11 +26,12 @@ final class LocaleFiles
      */
     public static function write(string $dir, string $locale, string $content): void
     {
-        Filesystem\write_file(self::path($dir, "{$locale}.php"), $content);
+        File\write(self::path($dir, "{$locale}.php"), $content, File\WriteMode::MUST_CREATE);
     }
 
     /**
      * @param D $dir
+     * @return non-empty-string
      */
     private static function path(string $dir, ?string $path = null): string
     {
