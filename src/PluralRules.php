@@ -17,7 +17,7 @@ final class PluralRules
     public static function select(string $locale, int|float|string $number): string
     {
         $number = is_float($number) && $number - round($number) === 0.0
-            ? (string) $number . '.0'
+            ? $number . '.0'
             : (string) $number;
 
         foreach (self::rulesFor($locale) as $category => $rule) {
