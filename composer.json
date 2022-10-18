@@ -60,7 +60,6 @@
     },
     "config": {
         "allow-plugins": {
-            "pestphp/pest-plugin": true,
             "vaimo/composer-patches": true
         }
     },
