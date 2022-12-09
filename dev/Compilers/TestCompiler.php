@@ -75,6 +75,8 @@ final class TestCompiler
         foreach ($samples as $category => $sampleList) {
             $samples = $this->compileSamples($sampleList);
 
+            assert(is_string($category));
+
             $this->compileTest($class, $locale, $category, $samples);
         }
 
