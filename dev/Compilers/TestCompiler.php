@@ -110,7 +110,7 @@ final class TestCompiler
     }
 
     /**
-     * @return string[]
+     * @return list<string>
      */
     private function compileSamples(TreeNode $samples): array
     {

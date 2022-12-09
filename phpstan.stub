@@ -32,7 +32,7 @@ namespace Hoa\Compiler\Llk
         public function getChild($i);
 
         /**
-         * @return self[]
+         * @return list<self>
          */
         public function getChildren();
     }
