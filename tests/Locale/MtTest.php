@@ -31,6 +31,29 @@ final class MtTest extends TestCase
     }
 
     /**
+     * @dataProvider provideTwoCases
+     */
+    public function testTwo(int|float|string $num): void
+    {
+        $category = PluralRules::select('mt', $num);
+        $this->assertSame('two', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public function provideTwoCases(): array
+    {
+        return [
+            [2],
+            [2.0],
+            ['2.00'],
+            ['2.000'],
+            ['2.0000'],
+        ];
+    }
+
+    /**
      * @dataProvider provideFewCases
      */
     public function testFew(int|float|string $num): void
@@ -46,22 +69,22 @@ final class MtTest extends TestCase
     {
         return [
             [0],
-            [2],
+            [3],
             [10],
-            [102],
-            [107],
-            [1002],
+            [103],
+            [109],
+            [1003],
             [0.0],
-            [2.0],
             [3.0],
             [4.0],
             [5.0],
             [6.0],
             [7.0],
             [8.0],
+            [9.0],
             [10.0],
-            [102.0],
-            [1002.0],
+            [103.0],
+            [1003.0],
         ];
     }
 

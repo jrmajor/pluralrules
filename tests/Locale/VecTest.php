@@ -5,14 +5,14 @@ namespace Major\PluralRules\Tests\Locale;
 use Major\PluralRules\PluralRules;
 use PHPUnit\Framework\TestCase;
 
-final class RoTest extends TestCase
+final class VecTest extends TestCase
 {
     /**
      * @dataProvider provideOneCases
      */
     public function testOne(int|float|string $num): void
     {
-        $category = PluralRules::select('ro', $num);
+        $category = PluralRules::select('vec', $num);
         $this->assertSame('one', $category);
     }
 
@@ -27,33 +27,21 @@ final class RoTest extends TestCase
     }
 
     /**
-     * @dataProvider provideFewCases
+     * @dataProvider provideManyCases
      */
-    public function testFew(int|float|string $num): void
+    public function testMany(int|float|string $num): void
     {
-        $category = PluralRules::select('ro', $num);
-        $this->assertSame('few', $category);
+        $category = PluralRules::select('vec', $num);
+        $this->assertSame('many', $category);
     }
 
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideFewCases(): array
+    public function provideManyCases(): array
     {
         return [
-            [0],
-            [2],
-            [16],
-            [101],
-            [1001],
-            [0.0],
-            [1.5],
-            [10.0],
-            [100.0],
-            [1000.0],
-            [10000.0],
-            [100000.0],
-            [1000000.0],
+            [1000000],
         ];
     }
 
@@ -62,7 +50,7 @@ final class RoTest extends TestCase
      */
     public function testOther(int|float|string $num): void
     {
-        $category = PluralRules::select('ro', $num);
+        $category = PluralRules::select('vec', $num);
         $this->assertSame('other', $category);
     }
 
@@ -72,13 +60,21 @@ final class RoTest extends TestCase
     public function provideOtherCases(): array
     {
         return [
-            [20],
-            [35],
+            [0],
+            [2],
+            [16],
             [100],
             [1000],
             [10000],
             [100000],
-            [1000000],
+            [0.0],
+            [1.5],
+            [10.0],
+            [100.0],
+            [1000.0],
+            [10000.0],
+            [100000.0],
+            [1000000.0],
         ];
     }
 }

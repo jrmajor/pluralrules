@@ -23,6 +23,10 @@ final class HeTest extends TestCase
     {
         return [
             [1],
+            [0.0],
+            [0.9],
+            ['0.00'],
+            [0.05],
         ];
     }
 
@@ -46,37 +50,6 @@ final class HeTest extends TestCase
     }
 
     /**
-     * @dataProvider provideManyCases
-     */
-    public function testMany(int|float|string $num): void
-    {
-        $category = PluralRules::select('he', $num);
-        $this->assertSame('many', $category);
-    }
-
-    /**
-     * @return list<array{int|float|string}>
-     */
-    public function provideManyCases(): array
-    {
-        return [
-            [20],
-            [30],
-            [40],
-            [50],
-            [60],
-            [70],
-            [80],
-            [90],
-            [100],
-            [1000],
-            [10000],
-            [100000],
-            [1000000],
-        ];
-    }
-
-    /**
      * @dataProvider provideOtherCases
      */
     public function testOther(int|float|string $num): void
@@ -94,10 +67,13 @@ final class HeTest extends TestCase
             [0],
             [3],
             [17],
-            [101],
-            [1001],
-            [0.0],
-            [1.5],
+            [100],
+            [1000],
+            [10000],
+            [100000],
+            [1000000],
+            [1.0],
+            [2.5],
             [10.0],
             [100.0],
             [1000.0],
