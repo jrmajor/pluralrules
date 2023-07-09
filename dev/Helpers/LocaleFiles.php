@@ -31,6 +31,7 @@ final class LocaleFiles
 
     /**
      * @param D $dir
+     *
      * @return non-empty-string
      */
     private static function path(string $dir, ?string $path = null): string

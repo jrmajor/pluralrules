@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Syntax description: http://unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
- * Rules reference: https://unicode-org.github.io/cldr-staging/charts/latest/supplemental/language_plural_rules.html
- */
-
 declare(strict_types=1);
 
 namespace Major\PluralRules\Dev\Compilers;
@@ -19,6 +14,10 @@ use Psl\Iter;
 use Psl\Str;
 use Psl\Vec;
 
+/**
+ * @see http://unicode.org/reports/tr35/tr35-numbers.html#Language_Plural_Rules
+ * @see https://unicode-org.github.io/cldr-staging/charts/latest/supplemental/language_plural_rules.html
+ */
 final class RuleCompiler
 {
     private Parser $llk;
