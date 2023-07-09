@@ -19,7 +19,7 @@ final class SahTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideOtherCases(): array
+    public static function provideOtherCases(): array
     {
         return [
             [0],

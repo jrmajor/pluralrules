@@ -19,7 +19,7 @@ final class GdTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideOneCases(): array
+    public static function provideOneCases(): array
     {
         return [
             [1],
@@ -46,7 +46,7 @@ final class GdTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideTwoCases(): array
+    public static function provideTwoCases(): array
     {
         return [
             [2],
@@ -73,7 +73,7 @@ final class GdTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideFewCases(): array
+    public static function provideFewCases(): array
     {
         return [
             [3],
@@ -111,7 +111,7 @@ final class GdTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideOtherCases(): array
+    public static function provideOtherCases(): array
     {
         return [
             [0],

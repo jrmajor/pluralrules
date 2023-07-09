@@ -104,6 +104,7 @@ final class TestCompiler
         $samples = Str\join($samples, "\n");
 
         $class->addMethod($providerName)
+            ->setStatic()
             ->addComment('@return list<array{int|float|string}>')
             ->setReturnType('array')
             ->addBody("return [\n{$samples}\n];");

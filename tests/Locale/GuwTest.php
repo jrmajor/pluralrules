@@ -19,7 +19,7 @@ final class GuwTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideOneCases(): array
+    public static function provideOneCases(): array
     {
         return [
             [0],
@@ -47,7 +47,7 @@ final class GuwTest extends TestCase
     /**
      * @return list<array{int|float|string}>
      */
-    public function provideOtherCases(): array
+    public static function provideOtherCases(): array
     {
         return [
             [2],
