@@ -20,7 +20,7 @@ final class HelpersTest extends TestCase
         $this->assertSame($expected, H\studly(...$pieces));
     }
 
-    public function provideStudlyCases(): Generator
+    public static function provideStudlyCases(): Generator
     {
         yield from [
             [['foo-bar', 'baz'], 'FooBarBaz'],
@@ -39,7 +39,7 @@ final class HelpersTest extends TestCase
         $this->assertSame($expected, H\camel(...$pieces));
     }
 
-    public function provideCamelCases(): Generator
+    public static function provideCamelCases(): Generator
     {
         yield from [
             [['foo-bar', 'baz'], 'fooBarBaz'],

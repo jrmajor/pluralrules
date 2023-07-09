@@ -29,7 +29,7 @@ final class OperandsTest extends TestCase
         $this->assertSame($t, t($source));
     }
 
-    public function provideOperandCases(): Generator
+    public static function provideOperandCases(): Generator
     {
         yield from [
             ['1', 1.0, 1, 0, 0, 0, 0],
