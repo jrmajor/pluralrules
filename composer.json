@@ -30,10 +30,10 @@
         "hoa/compiler": "~3.17",
         "jrmajor/cs": "^0.5.1",
         "nette/php-generator": "^4.0",
-        "nunomaduro/collision": "^6.4",
+        "nunomaduro/collision": "^7.7",
         "php-standard-library/phpstan-extension": "^1.0",
         "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^10.2.3",
         "symfony/console": "^6.3",
         "symfony/var-dumper": "^6.3",
         "vaimo/composer-patches": "^5.1"
