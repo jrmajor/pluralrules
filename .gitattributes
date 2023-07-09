@@ -9,5 +9,5 @@
 /package.json          export-ignore
 /phpstan.neon          export-ignore
 /phpstan.stub          export-ignore
-/phpunit.xml.dist      export-ignore
+/phpunit.dist.xml      export-ignore
 /yarn.lock             export-ignore
