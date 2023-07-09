@@ -26,16 +26,16 @@
         "ext-intl": "*"
     },
     "require-dev": {
-        "azjezz/psl": "^2.3",
+        "azjezz/psl": "^2.6",
         "hoa/compiler": "~3.17",
-        "jrmajor/cs": "^0.4.6",
+        "jrmajor/cs": "^0.5.1",
         "nette/php-generator": "^4.0",
-        "nunomaduro/collision": "^6.3",
+        "nunomaduro/collision": "^6.4",
         "php-standard-library/phpstan-extension": "^1.0",
-        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^9.5",
-        "symfony/console": "^6.2",
-        "symfony/var-dumper": "^6.2",
+        "symfony/console": "^6.3",
+        "symfony/var-dumper": "^6.3",
         "vaimo/composer-patches": "^5.1"
     },
     "minimum-stability": "dev",
