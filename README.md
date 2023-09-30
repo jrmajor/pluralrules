@@ -29,6 +29,6 @@ Before running it, you would need to run `yarn install` to download [`cldr-core`
 
 ```sh
 vendor/bin/phpunit           # Tests
-vendor/bin/phpstan analyse   # Static analysis
+vendor/bin/phpstan analyze   # Static analysis
 vendor/bin/php-cs-fixer fix  # Formatting
 ```
