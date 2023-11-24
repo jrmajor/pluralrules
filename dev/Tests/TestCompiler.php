@@ -7,7 +7,7 @@
 
 declare(strict_types=1);
 
-namespace Major\PluralRules\Dev\Compilers;
+namespace Major\PluralRules\Dev\Tests;
 
 use Exception;
 use Hoa\Compiler\Llk\Llk;
@@ -29,7 +29,7 @@ final class TestCompiler
         private array $rules,
     ) {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/../grammars/SampleList.pp'),
+            new \Hoa\File\Read(__DIR__ . '/SampleList.pp'),
         );
     }
 

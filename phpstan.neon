@@ -11,15 +11,15 @@ parameters:
         -
             message: '#^Cannot call method (getChild|getChildren|getValueValue)\(\) on Hoa\\Compiler\\Llk\\TreeNode\|null\.$#'
             count: 9
-            path: dev/Compilers/RuleCompiler.php
+            path: dev/Rules/RuleCompiler.php
         -
             message: '#expects Hoa\\Compiler\\Llk\\TreeNode, Hoa\\Compiler\\Llk\\TreeNode\|null given\.$#'
             count: 1
-            path: dev/Compilers/RuleCompiler.php
+            path: dev/Rules/RuleCompiler.php
         -
             message: '#^Parameter \#1 \$\w+ of function Psl\\Str\\(contains|ends_with) expects string, string\|null given\.$#'
             count: 5
-            path: dev/Compilers/TestCompiler.php
+            path: dev/Tests/TestCompiler.php
 
     tmpDir: .cache/phpstan
 

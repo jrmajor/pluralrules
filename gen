@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Major\PluralRules\Dev\Commands;
+use Major\PluralRules\Dev;
 use NunoMaduro\Collision\Provider;
 use Symfony\Component\Console\Application;
 
@@ -12,8 +12,8 @@ require __DIR__ . '/vendor/autoload.php';
 $application = new Application('pluralrules locale data compiler');
 
 $application->addCommands([
-    new Commands\CompileRulesCommand(),
-    new Commands\CompileTestsCommand(),
+    new Dev\Rules\CompileRulesCommand(),
+    new Dev\Tests\CompileTestsCommand(),
 ]);
 
 $application->run();

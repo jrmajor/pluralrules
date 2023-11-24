@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Major\PluralRules\Dev\Compilers;
+namespace Major\PluralRules\Dev\Rules;
 
 use Exception;
 use Hoa\Compiler\Llk\Llk;
@@ -28,7 +28,7 @@ final class RuleCompiler
         private array $rules,
     ) {
         $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/../grammars/PluralRule.pp'),
+            new \Hoa\File\Read(__DIR__ . '/PluralRule.pp'),
         );
     }
 
