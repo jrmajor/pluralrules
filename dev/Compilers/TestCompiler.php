@@ -15,6 +15,7 @@ use Hoa\Compiler\Llk\Parser;
 use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers as H;
 use Nette\PhpGenerator as Gen;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Psl\Str;
 use Psl\Vec;
 
@@ -66,6 +67,7 @@ final class TestCompiler
 
         $namespace = $file->addNamespace('Major\\PluralRules\\Tests\\Locale')
             ->addUse(\Major\PluralRules\PluralRules::class)
+            ->addUse(\PHPUnit\Framework\Attributes\DataProvider::class)
             ->addUse(\PHPUnit\Framework\TestCase::class);
 
         $class = $namespace->addClass($name)
@@ -93,7 +95,7 @@ final class TestCompiler
         $providerName = H\camel('provide', $category, 'cases');
 
         $test = $class->addMethod(H\camel('test', $category))
-            ->addComment("@dataProvider {$providerName}")
+            ->addAttribute(DataProvider::class, [$providerName])
             ->setReturnType('void')
             ->addBody('$category = PluralRules::select(?, $num);', [$locale])
             ->addBody('$this->assertSame(?, $category);', [$category]);

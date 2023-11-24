@@ -3,13 +3,12 @@
 namespace Major\PluralRules\Tests\Locale;
 
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class IaTest extends TestCase
 {
-    /**
-     * @dataProvider provideOneCases
-     */
+    #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('ia', $num);
@@ -26,9 +25,7 @@ final class IaTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOtherCases
-     */
+    #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('ia', $num);

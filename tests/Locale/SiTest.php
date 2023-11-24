@@ -3,13 +3,12 @@
 namespace Major\PluralRules\Tests\Locale;
 
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class SiTest extends TestCase
 {
-    /**
-     * @dataProvider provideOneCases
-     */
+    #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('si', $num);
@@ -39,9 +38,7 @@ final class SiTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOtherCases
-     */
+    #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('si', $num);

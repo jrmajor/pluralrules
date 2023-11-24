@@ -3,13 +3,12 @@
 namespace Major\PluralRules\Tests\Locale;
 
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class KwTest extends TestCase
 {
-    /**
-     * @dataProvider provideZeroCases
-     */
+    #[DataProvider('provideZeroCases')]
     public function testZero(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);
@@ -30,9 +29,7 @@ final class KwTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOneCases
-     */
+    #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);
@@ -53,9 +50,7 @@ final class KwTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTwoCases
-     */
+    #[DataProvider('provideTwoCases')]
     public function testTwo(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);
@@ -93,9 +88,7 @@ final class KwTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFewCases
-     */
+    #[DataProvider('provideFewCases')]
     public function testFew(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);
@@ -129,9 +122,7 @@ final class KwTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideManyCases
-     */
+    #[DataProvider('provideManyCases')]
     public function testMany(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);
@@ -165,9 +156,7 @@ final class KwTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOtherCases
-     */
+    #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('kw', $num);

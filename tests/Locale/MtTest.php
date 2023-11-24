@@ -3,13 +3,12 @@
 namespace Major\PluralRules\Tests\Locale;
 
 use Major\PluralRules\PluralRules;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class MtTest extends TestCase
 {
-    /**
-     * @dataProvider provideOneCases
-     */
+    #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
         $category = PluralRules::select('mt', $num);
@@ -30,9 +29,7 @@ final class MtTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideTwoCases
-     */
+    #[DataProvider('provideTwoCases')]
     public function testTwo(int|float|string $num): void
     {
         $category = PluralRules::select('mt', $num);
@@ -53,9 +50,7 @@ final class MtTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideFewCases
-     */
+    #[DataProvider('provideFewCases')]
     public function testFew(int|float|string $num): void
     {
         $category = PluralRules::select('mt', $num);
@@ -88,9 +83,7 @@ final class MtTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideManyCases
-     */
+    #[DataProvider('provideManyCases')]
     public function testMany(int|float|string $num): void
     {
         $category = PluralRules::select('mt', $num);
@@ -121,9 +114,7 @@ final class MtTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider provideOtherCases
-     */
+    #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
         $category = PluralRules::select('mt', $num);
