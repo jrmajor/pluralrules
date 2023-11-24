@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08058990637c90d03a5a3321afd9d54e",
+    "content-hash": "a4f5e0225350f110312c125e7414e4c2",
     "packages": [],
     "packages-dev": [
         {
@@ -583,12 +583,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Hoa\\Consistency\\": "."
-                },
                 "files": [
                     "Prelude.php"
-                ]
+                ],
+                "psr-4": {
+                    "Hoa\\Consistency\\": "."
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -990,12 +990,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Hoa\\Protocol\\": "."
-                },
                 "files": [
                     "Wrapper.php"
-                ]
+                ],
+                "psr-4": {
+                    "Hoa\\Protocol\\": "."
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5418,7 +5418,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "8.1 - 8.2",
+        "php": "8.1 - 8.3",
         "ext-intl": "*"
     },
     "platform-dev": [],
