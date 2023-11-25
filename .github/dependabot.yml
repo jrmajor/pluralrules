@@ -7,7 +7,6 @@ updates:
       interval: monthly
     allow:
       - dependency-type: development
-      - dependency-type: indirect
     groups:
       composer:
         update-types: [minor, patch]
