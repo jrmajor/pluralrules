@@ -35,7 +35,7 @@
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.4",
         "symfony/console": "^6.3",
-        "symfony/var-dumper": "^6.3",
+        "symfony/var-dumper": "^6.4",
         "vaimo/composer-patches": "^5.1"
     },
     "minimum-stability": "dev",
