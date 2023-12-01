@@ -34,7 +34,7 @@
         "php-standard-library/phpstan-extension": "^1.0",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.4",
-        "symfony/console": "^6.3",
+        "symfony/console": "^6.4",
         "symfony/var-dumper": "^6.3",
         "vaimo/composer-patches": "^5.1"
     },
