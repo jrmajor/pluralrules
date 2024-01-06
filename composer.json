@@ -28,7 +28,7 @@
     "require-dev": {
         "azjezz/psl": "^2.9",
         "hoa/compiler": "~3.17",
-        "jrmajor/cs": "^0.5.4",
+        "jrmajor/cs": "^0.5.5",
         "nette/php-generator": "^4.1",
         "nunomaduro/collision": "^7.10",
         "php-standard-library/phpstan-extension": "^1.0",
