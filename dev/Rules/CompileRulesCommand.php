@@ -4,16 +4,14 @@ namespace Major\PluralRules\Dev\Rules;
 
 use Major\PluralRules\Dev\Helpers\CldrData;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+#[AsCommand('rules', 'Compiles rules for all locales')]
 final class CompileRulesCommand extends Command
 {
-    protected static $defaultName = 'rules';
-
-    protected static $defaultDescription = 'Compiles rules for all locales';
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $start = microtime(true);
