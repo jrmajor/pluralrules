@@ -4,15 +4,15 @@ namespace Major\PluralRules\Tests;
 
 use Generator;
 use Major\PluralRules\Dev\Helpers as H;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class HelpersTest extends TestCase
 {
     /**
-     * @dataProvider provideStudlyCases
-     *
      * @param list<string> $pieces
      */
+    #[DataProvider('provideStudlyCases')]
     public function testStudlyHelperWorks(array $pieces, string $expected): void
     {
         $this->assertSame($expected, H\studly(...$pieces));
@@ -28,10 +28,9 @@ final class HelpersTest extends TestCase
     }
 
     /**
-     * @dataProvider provideCamelCases
-     *
      * @param list<string> $pieces
      */
+    #[DataProvider('provideCamelCases')]
     public function testCamelHelperWorks(array $pieces, string $expected): void
     {
         $this->assertSame($expected, H\camel(...$pieces));

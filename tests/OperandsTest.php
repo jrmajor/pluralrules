@@ -3,15 +3,14 @@
 namespace Major\PluralRules\Tests;
 
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function Major\PluralRules\Operands\{f, i, n, t, v, w};
 
 final class OperandsTest extends TestCase
 {
-    /**
-     * @dataProvider provideOperandCases
-     */
+    #[DataProvider('provideOperandCases')]
     public function testItCanComputeOperands(
         string $source,
         float $n,
