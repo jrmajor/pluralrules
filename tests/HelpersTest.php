@@ -6,8 +6,6 @@ use Generator;
 use Major\PluralRules\Dev\Helpers as H;
 use PHPUnit\Framework\TestCase;
 
-use function Major\PluralRules\Operands\{f, i, n, t, v, w};
-
 final class HelpersTest extends TestCase
 {
     /**
