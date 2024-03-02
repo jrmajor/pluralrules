@@ -6,6 +6,7 @@ use Major\PluralRules\Dev\Helpers\CldrData;
 use Major\PluralRules\Dev\Helpers\LocaleFiles;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -18,10 +19,13 @@ final class CompileRulesCommand extends Command
 
         LocaleFiles::prepareDirectory('rules');
 
-        foreach (CldrData::rules() as $locale => $rules) {
+        $progressBar = new ProgressBar($output);
+
+        foreach ($progressBar->iterate(CldrData::rules()) as $locale => $rules) {
             (new RuleCompiler($locale, $rules))->compile();
         }
 
+        $output->writeln('');
         $output->writeln('<info>Compiled in ' . round(microtime(true) - $start, 2) . 's</info>');
 
         return Command::SUCCESS;
