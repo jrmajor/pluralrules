@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-cldr-core@^44.0:
-  version "44.0.1"
-  resolved "https://registry.yarnpkg.com/cldr-core/-/cldr-core-44.0.1.tgz#d1c68770f252a6e1229f79c8edea082153908ecf"
-  integrity sha512-k+Mgsb/VbCYCJHhdL/ej+qyNNFs9OB8fOmi/tpa8L+vkbX3ksn1MizUtToKU827Y1XUfT0TAaybmLA+7cEqx7Q==
+cldr-core@^45.0:
+  version "45.0.0"
+  resolved "https://registry.yarnpkg.com/cldr-core/-/cldr-core-45.0.0.tgz#bbb77f479a62e3913999cce1c2c94b8834feffa9"
+  integrity sha512-gQVxy3gzOQpXiTRGmlKiRQFLYimrr1RgvqGKZCS61JgmdkeNm7+LZGx+Lhw5/AW0t8WMM/uZhf4CMva6LuUobQ==
