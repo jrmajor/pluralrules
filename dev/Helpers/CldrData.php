@@ -15,7 +15,7 @@ final class CldrData
     {
         $data = File\read(__DIR__ . '/../../node_modules/cldr-core/supplemental/plurals.json');
 
-        /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore offsetAccess.nonOffsetAccessible, offsetAccess.nonOffsetAccessible */
         $rules = Json\decode($data)['supplemental']['plurals-type-cardinal'];
 
         Type\dict(
