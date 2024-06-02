@@ -36,7 +36,8 @@ final class PluralRules
      */
     private static function rulesFor(string $locale): array
     {
-        $lang = Locale::getPrimaryLanguage($locale);
+        $lang = Locale::getPrimaryLanguage($locale)
+            ?? throw new LocaleNotFound($locale);
 
         if ($lang === 'pt' && Locale::getRegion($locale) === 'PT') {
             $lang = 'pt-PT';
