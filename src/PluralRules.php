@@ -50,6 +50,7 @@ final class PluralRules
         is_file($filename = __DIR__ . "/../rules/{$lang}.php")
             ?: throw new LocaleNotFound($lang);
 
+        /** @phpstan-ignore return.type, assign.propertyType */
         return self::$rules[$lang] = require $filename;
     }
 }
