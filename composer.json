@@ -28,12 +28,12 @@
     "require-dev": {
         "azjezz/psl": "^3.1",
         "hoa/compiler": "~3.17",
-        "jrmajor/cs": "^0.6.0",
+        "jrmajor/cs": "^0.6.1",
         "nette/php-generator": "^4.1",
-        "nunomaduro/collision": "^8.1",
+        "nunomaduro/collision": "^8.5",
         "php-standard-library/phpstan-extension": "^2.0",
         "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^11.1",
+        "phpunit/phpunit": "^11.4",
         "symfony/console": "^7.0",
         "symfony/var-dumper": "^7.1",
         "vaimo/composer-patches": "^5.2"
