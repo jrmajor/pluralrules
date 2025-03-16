@@ -2,5 +2,9 @@
   "private": true,
   "dependencies": {
     "cldr-core": "^46.1"
+  },
+  "volta": {
+    "node": "22.14.0",
+    "yarn": "1.22.22"
   }
 }
