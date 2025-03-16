@@ -6,33 +6,12 @@ use Major\PluralRules\PluralRules;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class BloTest extends TestCase
+final class CswTest extends TestCase
 {
-    #[DataProvider('provideZeroCases')]
-    public function testZero(int|float|string $num): void
-    {
-        $category = PluralRules::select('blo', $num);
-        $this->assertSame('zero', $category);
-    }
-
-    /**
-     * @return list<array{int|float|string}>
-     */
-    public static function provideZeroCases(): array
-    {
-        return [
-            [0],
-            [0.0],
-            ['0.00'],
-            ['0.000'],
-            ['0.0000'],
-        ];
-    }
-
     #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
-        $category = PluralRules::select('blo', $num);
+        $category = PluralRules::select('csw', $num);
         $this->assertSame('one', $category);
     }
 
@@ -42,10 +21,15 @@ final class BloTest extends TestCase
     public static function provideOneCases(): array
     {
         return [
+            [0],
             [1],
+            [0.0],
             [1.0],
+            ['0.00'],
             ['1.00'],
+            ['0.000'],
             ['1.000'],
+            ['0.0000'],
             ['1.0000'],
         ];
     }
@@ -53,7 +37,7 @@ final class BloTest extends TestCase
     #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
-        $category = PluralRules::select('blo', $num);
+        $category = PluralRules::select('csw', $num);
         $this->assertSame('other', $category);
     }
 

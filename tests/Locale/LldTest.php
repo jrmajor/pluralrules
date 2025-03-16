@@ -6,33 +6,12 @@ use Major\PluralRules\PluralRules;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-final class BloTest extends TestCase
+final class LldTest extends TestCase
 {
-    #[DataProvider('provideZeroCases')]
-    public function testZero(int|float|string $num): void
-    {
-        $category = PluralRules::select('blo', $num);
-        $this->assertSame('zero', $category);
-    }
-
-    /**
-     * @return list<array{int|float|string}>
-     */
-    public static function provideZeroCases(): array
-    {
-        return [
-            [0],
-            [0.0],
-            ['0.00'],
-            ['0.000'],
-            ['0.0000'],
-        ];
-    }
-
     #[DataProvider('provideOneCases')]
     public function testOne(int|float|string $num): void
     {
-        $category = PluralRules::select('blo', $num);
+        $category = PluralRules::select('lld', $num);
         $this->assertSame('one', $category);
     }
 
@@ -43,17 +22,30 @@ final class BloTest extends TestCase
     {
         return [
             [1],
-            [1.0],
-            ['1.00'],
-            ['1.000'],
-            ['1.0000'],
+        ];
+    }
+
+    #[DataProvider('provideManyCases')]
+    public function testMany(int|float|string $num): void
+    {
+        $category = PluralRules::select('lld', $num);
+        $this->assertSame('many', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public static function provideManyCases(): array
+    {
+        return [
+            [1000000],
         ];
     }
 
     #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
-        $category = PluralRules::select('blo', $num);
+        $category = PluralRules::select('lld', $num);
         $this->assertSame('other', $category);
     }
 
@@ -63,17 +55,15 @@ final class BloTest extends TestCase
     public static function provideOtherCases(): array
     {
         return [
+            [0],
             [2],
-            [17],
+            [16],
             [100],
             [1000],
             [10000],
             [100000],
-            [1000000],
-            [0.1],
-            [0.9],
-            [1.1],
-            [1.7],
+            [0.0],
+            [1.5],
             [10.0],
             [100.0],
             [1000.0],

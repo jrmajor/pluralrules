@@ -25,6 +25,23 @@ final class ScnTest extends TestCase
         ];
     }
 
+    #[DataProvider('provideManyCases')]
+    public function testMany(int|float|string $num): void
+    {
+        $category = PluralRules::select('scn', $num);
+        $this->assertSame('many', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public static function provideManyCases(): array
+    {
+        return [
+            [1000000],
+        ];
+    }
+
     #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
@@ -45,7 +62,6 @@ final class ScnTest extends TestCase
             [1000],
             [10000],
             [100000],
-            [1000000],
             [0.0],
             [1.5],
             [10.0],
