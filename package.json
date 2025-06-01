@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "cldr-core": "^46.1"
+    "cldr-core": "^47.0"
   },
   "volta": {
     "node": "22.14.0",
