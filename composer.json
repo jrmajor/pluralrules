@@ -26,7 +26,7 @@
         "ext-intl": "*"
     },
     "require-dev": {
-        "azjezz/psl": "^3.3",
+        "azjezz/psl": "^4.2",
         "hoa/compiler": "~3.17",
         "jrmajor/cs": "^0.6.1",
         "nette/php-generator": "^4.2",
