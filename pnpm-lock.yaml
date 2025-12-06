@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       cldr-core:
-        specifier: ^46.1
-        version: 46.1.0
+        specifier: ^48.0
+        version: 48.0.0
 
 packages:
 
-  cldr-core@46.1.0:
-    resolution: {integrity: sha512-YWIbxgpO6fUais+FIm6Stl/KoAAhNJx4wDg2sg06QxK6GQ+i1iwdpCiyIJ7CTWduRuqUmRoaYpL/n5/8Q8ywxg==}
+  cldr-core@48.0.0:
+    resolution: {integrity: sha512-iQnK68eOjEsHEOwCvi2CI7xbjcVlCdaSNTQrkwCgEMnyZUbHCgF0GPw2CXi0D2IGz+9Pj80cmcWzRFcF6zdrYQ==}
 
 snapshots:
 
-  cldr-core@46.1.0: {}
+  cldr-core@48.0.0: {}
