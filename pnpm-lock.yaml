@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      cldr-core:
+        specifier: ^46.1
+        version: 46.1.0
+
+packages:
+
+  cldr-core@46.1.0:
+    resolution: {integrity: sha512-YWIbxgpO6fUais+FIm6Stl/KoAAhNJx4wDg2sg06QxK6GQ+i1iwdpCiyIJ7CTWduRuqUmRoaYpL/n5/8Q8ywxg==}
+
+snapshots:
+
+  cldr-core@46.1.0: {}

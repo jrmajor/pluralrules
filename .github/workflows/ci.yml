@@ -154,8 +154,11 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
-      - name: Install Yarn dependencies
-        run: yarn install
+      - name: Setup pnpm and install dependencies
+        uses: pnpm/action-setup@8aea7c7d41767602d47cd869ce9e7aa45c96d27b
+        with:
+          cache: true
+          run_install: true
 
       - name: Compile rules
         run: |
