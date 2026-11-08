@@ -9,7 +9,7 @@ use Locale;
 
 final class PluralRules
 {
-    /** @var array<string, array<string, Closure>> */
+    /** @var array<string, array<string, Closure(string): bool>> */
     private static array $rules = [];
 
     private function __construct()
@@ -22,17 +22,11 @@ final class PluralRules
             ? $number . '.0'
             : (string) $number;
 
-        foreach (self::rulesFor($locale) as $category => $rule) {
-            if ($rule($number)) {
-                return $category;
-            }
-        }
-
-        return 'other';
+        return array_find_key(self::rulesFor($locale), fn ($rule) => $rule($number)) ?? 'other';
     }
 
     /**
-     * @return array<string, Closure>
+     * @return array<string, Closure(string): bool>
      */
     private static function rulesFor(string $locale): array
     {
