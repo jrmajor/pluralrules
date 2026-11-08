@@ -2,7 +2,6 @@
 
 namespace Major\PluralRules\Dev\Helpers;
 
-use Hoa\Compiler;
 use Psl\Str;
 use Psl\Vec;
 
@@ -27,16 +26,4 @@ function studly(string ...$pieces): string
 function camel(string ...$pieces): string
 {
     return lcfirst(studly(...$pieces));
-}
-
-/**
- * Debugging helper, dumps TreeNode object.
- *
- * @return never
- */
-function da(Compiler\Llk\TreeNode $ast): void
-{
-    echo (new Compiler\Visitor\Dump())->visit($ast);
-
-    exit(1);
 }

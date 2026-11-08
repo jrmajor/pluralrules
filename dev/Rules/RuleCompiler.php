@@ -5,12 +5,8 @@ declare(strict_types=1);
 namespace Major\PluralRules\Dev\Rules;
 
 use Exception;
-use Hoa\Compiler\Llk\Llk;
-use Hoa\Compiler\Llk\Parser;
-use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers as H;
-use Psl\Dict;
-use Psl\Iter;
+use Psl\Regex;
 use Psl\Str;
 use Psl\Vec;
 
@@ -20,21 +16,21 @@ use Psl\Vec;
  */
 final class RuleCompiler
 {
-    private Parser $llk;
+    /** @var array<string, true> */
+    private array $operands = [];
+
+    /** @var array<string, true> */
+    private array $operators = [];
 
     public function __construct(
         private string $locale,
         /** @var array<string, string> */
         private array $rules,
-    ) {
-        $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/PluralRule.pp'),
-        );
-    }
+    ) { }
 
     public function compile(): void
     {
-        $asts = [];
+        $compiled = [];
 
         foreach ($this->rules as $category => $rule) {
             $category = Str\strip_prefix($category, 'pluralRule-count-');
@@ -43,138 +39,118 @@ final class RuleCompiler
                 continue;
             }
 
-            $rule = Str\before($rule, '@') ?? $rule;
+            $condition = Str\before($rule, '@') ?? $rule;
+            $condition = Str\trim(Regex\replace($condition, '/\\s+/', ' '));
 
-            $asts[$category] = $this->llk->parse($rule);
+            $compiled[$category] = $this->compileCondition($condition);
         }
 
-        H\LocaleFiles::write('rules', $this->locale, $this->compileRules($asts));
+        H\LocaleFiles::write('rules', $this->locale, $this->compileFile($compiled));
     }
 
     /**
-     * @param array<string, TreeNode> $rules
+     * @param array<string, string> $rules
      */
-    private function compileRules(array $rules): string
+    private function compileFile(array $rules): string
     {
         if ($rules === []) {
             return "<?php\n\nreturn [];\n";
         }
 
-        $compiled = "<?php\n\n{$this->compileImports($rules)}\n\nreturn [\n";
+        $compiled = "<?php\n\n{$this->compileImports()}\n\nreturn [\n";
 
         foreach ($rules as $category => $rule) {
-            $compiled .= "    '{$category}' => fn (\$n) => {$this->compileRule($rule)},\n";
+            $compiled .= "    '{$category}' => fn (\$n) => {$rule},\n";
         }
 
         return "{$compiled}];\n";
     }
 
+    private function compileImports(): string
+    {
+        $imports = [
+            'Operands' => Vec\sort(Vec\keys($this->operands)),
+            'Operators' => Vec\sort(Vec\keys($this->operators)),
+        ];
+
+        $compiled = [];
+
+        foreach ($imports as $namespace => $functions) {
+            $compiled[] = match (count($functions)) {
+                0 => null,
+                1 => "use function Major\\PluralRules\\{$namespace}\\{$functions[0]};",
+                default => "use function Major\\PluralRules\\{$namespace}\\{" . Str\join($functions, ', ') . '};',
+            };
+        }
+
+        return Str\join(Vec\filter_nulls($compiled), "\n");
+    }
+
     /**
-     * @param array<string, TreeNode> $rules
+     * `and` binds tighter than `or`, same as `&&` and `||` in PHP.
      */
-    private function compileImports(array $rules): string
+    private function compileCondition(string $condition): string
     {
-        $operands = $operators = [];
+        $or = Vec\map(
+            Str\split($condition, ' or '),
+            fn (string $and) => Str\join(
+                Vec\map(Str\split($and, ' and '), $this->compileRelation(...)),
+                ' && ',
+            ),
+        );
 
-        foreach ($rules as $rule) {
-            foreach ($rule->getChildren() as $child) {
-                if ($child->getId() !== '#relation') {
-                    continue;
-                }
-
-                if (count($child->getChild(0)->getChildren()) > 1) {
-                    $operators[] = 'mod';
-                }
-
-                foreach ($child->getChild(2)->getChildren() as $rangeOrValue) {
-                    if ($rangeOrValue->getId() === '#range') {
-                        $operators[] = 'in_range';
-                    }
-                }
-
-                $operands[] = $child->getChild(0)->getChild(0)->getValueValue()
-                    ?? throw new Exception('Should not happen.');
-            }
-        }
-
-        $operands = Vec\sort(Dict\unique_scalar($operands));
-        $operators = Vec\sort(Dict\unique_scalar($operators));
-
-        $operands = match (count($operands)) {
-            1 => "use function Major\\PluralRules\\Operands\\{$operands[0]};",
-            default => 'use function Major\\PluralRules\\Operands\\{' . Str\join($operands, ', ') . '};',
-        };
-
-        $operators = match (count($operators)) {
-            0 => '',
-            1 => "use function Major\\PluralRules\\Operators\\{$operators[0]};",
-            default => 'use function Major\\PluralRules\\Operators\\{' . Str\join($operators, ', ') . '};',
-        };
-
-        return Str\trim($operands . "\n" . $operators);
+        return Str\join($or, ' || ');
     }
 
-    private function compileRule(TreeNode $rule): string
+    private function compileRelation(string $relation): string
     {
-        $reducer = function (string $acc, TreeNode $part) {
-            return $acc . match ($part->getValueToken() ?? $part->getId()) {
-                '#relation' => $this->compileRelation($part),
-                'and' => ' && ',
-                'or' => ' || ',
-            };
-        };
+        $matched = preg_match(
+            '/^([nifvtwce])(?: (?:%|mod) ([0-9]+))? (!?=) ([0-9., ]+)$/',
+            $relation,
+            $match,
+            PREG_UNMATCHED_AS_NULL,
+        );
 
-        return Iter\reduce($rule->getChildren(), $reducer, '');
-    }
-
-    private function compileRelation(TreeNode $relation): string
-    {
-        $negated = false;
-
-        foreach ($relation->getChild(1)->getChildren() as $operator) {
-            $negated = match ($operator->getValueToken()) {
-                'eq' => $negated,
-                'not', 'neq' => ! $negated,
-            };
+        if ($matched !== 1) {
+            throw new Exception("Invalid relation: {$relation}");
         }
 
-        $expression = $this->compileExpression($relation->getChild(0));
+        [, $operand, $mod, $operator, $ranges] = $match;
 
-        $ranges = $relation->getChild(2)->getChildren();
-        $compiled = '';
+        $this->operands[$operand] = true;
+        $expression = "{$operand}(\$n)";
 
-        foreach ($ranges as $key => $range) {
-            if ($key !== 0) {
-                $compiled .= ' || ';
-            }
-
-            if ($range->getValueToken() === 'number') {
-                $operator = count($ranges) === 1 && $negated ? '!=' : '==';
-                $compiled .= "{$expression} {$operator} {$range->getValueValue()}";
-
-                continue;
-            }
-
-            $from = $range->getChild(0)->getValueValue();
-            $to = $range->getChild(1)->getValueValue();
-
-            $operator = count($ranges) === 1 && $negated ? '! ' : '';
-            $compiled .= "{$operator}in_range({$expression}, {$from}, {$to})";
+        if ($mod !== null) {
+            $this->operators['mod'] = true;
+            $expression = "mod({$expression}, {$mod})";
         }
+
+        $negated = $operator === '!=';
+        $ranges = Vec\map(Str\split($ranges, ','), Str\trim(...));
 
         if (count($ranges) === 1) {
-            return $compiled;
+            return $this->compileRange($expression, $ranges[0], $negated);
         }
 
-        return ($negated ? '! ' : '') . "({$compiled})";
+        $compiled = Vec\map($ranges, fn ($range) => $this->compileRange($expression, $range));
+
+        return ($negated ? '! ' : '') . '(' . Str\join($compiled, ' || ') . ')';
     }
 
-    private function compileExpression(TreeNode $expression): string
+    private function compileRange(string $expression, string $range, bool $negated = false): string
     {
-        $operand = $expression->getChild(0)->getValueValue() . '($n)';
+        if (preg_match('/^([0-9]+)(?:\\.\\.([0-9]+))?$/', $range, $match, PREG_UNMATCHED_AS_NULL) !== 1) {
+            throw new Exception("Invalid range: {$range}");
+        }
 
-        $mod = $expression->getChild(1)?->getValueValue();
+        [, $from, $to] = $match;
 
-        return $mod !== null ? "mod({$operand}, {$mod})" : $operand;
+        if ($to === null) {
+            return $expression . ($negated ? ' != ' : ' == ') . $from;
+        }
+
+        $this->operators['in_range'] = true;
+
+        return ($negated ? '! ' : '') . "in_range({$expression}, {$from}, {$to})";
     }
 }
