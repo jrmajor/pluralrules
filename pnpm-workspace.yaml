@@ -1,0 +1,4 @@
+minimumReleaseAge: 0
+engineStrict: true
+dedupePeers: true
+strictPeerDependencies: true
