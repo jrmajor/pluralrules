@@ -10,9 +10,6 @@ declare(strict_types=1);
 namespace Major\PluralRules\Dev\Tests;
 
 use Exception;
-use Hoa\Compiler\Llk\Llk;
-use Hoa\Compiler\Llk\Parser;
-use Hoa\Compiler\Llk\TreeNode;
 use Major\PluralRules\Dev\Helpers as H;
 use Nette\PhpGenerator as Gen;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -21,41 +18,35 @@ use Psl\Vec;
 
 final class TestCompiler
 {
-    private Parser $llk;
-
     public function __construct(
         private string $locale,
         /** @var array<string, string> */
         private array $rules,
-    ) {
-        $this->llk = Llk::load(
-            new \Hoa\File\Read(__DIR__ . '/SampleList.pp'),
-        );
-    }
+    ) { }
 
     public function compile(): void
     {
-        $asts = [];
+        $samples = [];
 
         foreach ($this->rules as $category => $rule) {
             $category = Str\strip_prefix($category, 'pluralRule-count-');
 
-            if (null === $samples = Str\after($rule, '@')) {
+            if (null === $sampleList = Str\after($rule, '@')) {
                 continue;
             }
 
-            $asts[$category] = $this->llk->parse('@' . $samples);
+            $samples[$category] = $this->compileSamples($sampleList);
         }
 
         $name = H\studly($this->locale, 'test');
 
-        $compiled = $this->compileTests($this->locale, $name, $asts);
+        $compiled = $this->compileTests($this->locale, $name, $samples);
 
         H\LocaleFiles::write('tests', $name, $compiled);
     }
 
     /**
-     * @param array<string, TreeNode> $samples
+     * @param array<string, list<string>> $samples
      */
     private function compileTests(string $locale, string $name, array $samples): string
     {
@@ -74,10 +65,8 @@ final class TestCompiler
             ->setFinal()
             ->setExtends(\PHPUnit\Framework\TestCase::class);
 
-        foreach ($samples as $category => $sampleList) {
-            $samples = $this->compileSamples($sampleList);
-
-            $this->compileTest($class, $locale, $category, $samples);
+        foreach ($samples as $category => $categorySamples) {
+            $this->compileTest($class, $locale, $category, $categorySamples);
         }
 
         return (new Gen\PsrPrinter())->printFile($file);
@@ -113,21 +102,30 @@ final class TestCompiler
     }
 
     /**
+     * Only the endpoints of sample ranges are used.
+     *
      * @return list<string>
      */
-    private function compileSamples(TreeNode $samples): array
+    private function compileSamples(string $sampleList): array
     {
         $output = [];
 
-        foreach ($samples->getChildren() as $sample) {
-            if ($sample->isToken() && $sample->getValueToken() === 'value') {
-                $output[] = $this->compileValue($sample);
-
-                continue;
+        // `integer 0, 2~16, 1c6, … @decimal 0.0~1.5, 10.0, …`
+        foreach (Str\split($sampleList, '@') as $section) {
+            if (preg_match('/^(?:integer|decimal) (.+)$/', Str\trim($section), $match) !== 1) {
+                throw new Exception("Invalid samples: {$section}");
             }
 
-            foreach ($sample->getChildren() as $value) {
-                $output[] = $this->compileValue($value);
+            foreach (Str\split($match[1], ',') as $range) {
+                $range = Str\trim($range);
+
+                if ($range === '…' || $range === '...') {
+                    continue;
+                }
+
+                foreach (Str\split($range, '~') as $value) {
+                    $output[] = $this->compileValue($value);
+                }
             }
         }
 
@@ -137,9 +135,11 @@ final class TestCompiler
         );
     }
 
-    private function compileValue(TreeNode $value): ?string
+    private function compileValue(string $value): ?string
     {
-        $value = $value->getValueValue();
+        if (preg_match('/^[0-9]+(\\.[0-9]+)?([ce][1-9][0-9]*)?$/', $value) !== 1) {
+            throw new Exception("Invalid sample: {$value}");
+        }
 
         if (Str\contains($value, 'c') || Str\contains($value, 'e')) {
             return null;
