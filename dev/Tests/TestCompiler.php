@@ -69,7 +69,7 @@ final class TestCompiler
             $this->compileTest($class, $locale, $category, $categorySamples);
         }
 
-        return new Gen\PsrPrinter()->printFile($file);
+        return (new Gen\PsrPrinter())->printFile($file);
     }
 
     /**
