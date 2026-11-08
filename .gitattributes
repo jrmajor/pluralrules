@@ -1,13 +1,16 @@
 /.github               export-ignore
 /dev                   export-ignore
-/patches
+/patches               export-ignore
 /tests                 export-ignore
 /.editorconfig         export-ignore
+/.gitattributes        export-ignore
+/.gitignore            export-ignore
 /.php-cs-fixer.php     export-ignore
 /composer.lock         export-ignore
-/gen
+/gen                   export-ignore
 /package.json          export-ignore
 /phpstan.neon          export-ignore
 /phpstan.stub          export-ignore
 /phpunit.dist.xml      export-ignore
 /pnpm-lock.yaml        export-ignore
+/pnpm-workspace.yaml   export-ignore
