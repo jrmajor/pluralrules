@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['lowest', 'latest']
+        php: [lowest, latest]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,12 +36,12 @@ jobs:
 
     runs-on: ubuntu-latest
     strategy:
-     matrix:
-        php: ['lowest', 'latest']
+      matrix:
+        php: [lowest, latest]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -50,7 +50,7 @@ jobs:
           coverage: none
 
       - name: PHPStan cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .cache/phpstan
           key: phpstan-${{ github.sha }}
@@ -69,7 +69,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -78,7 +78,7 @@ jobs:
           coverage: none
 
       - name: PHP-CS-Fixer cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: .cache/.php-cs-fixer.cache
           key: php-cs-fixer-${{ github.sha }}
@@ -97,7 +97,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
