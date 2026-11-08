@@ -22,7 +22,7 @@ final class CompileTestsCommand extends Command
         $progressBar = new ProgressBar($output);
 
         foreach ($progressBar->iterate(CldrData::rules()) as $locale => $rules) {
-            (new TestCompiler($locale, $rules))->compile();
+            new TestCompiler($locale, $rules)->compile();
         }
 
         $output->writeln('');
