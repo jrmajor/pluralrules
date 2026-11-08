@@ -8,6 +8,28 @@ use PHPUnit\Framework\TestCase;
 
 final class ViTest extends TestCase
 {
+    #[DataProvider('provideOneCases')]
+    public function testOne(int|float|string $num): void
+    {
+        $category = PluralRules::select('vi', $num);
+        $this->assertSame('one', $category);
+    }
+
+    /**
+     * @return list<array{int|float|string}>
+     */
+    public static function provideOneCases(): array
+    {
+        return [
+            [0],
+            [1],
+            [0.0],
+            [1.0],
+            ['0.00'],
+            [0.04],
+        ];
+    }
+
     #[DataProvider('provideOtherCases')]
     public function testOther(int|float|string $num): void
     {
@@ -21,15 +43,15 @@ final class ViTest extends TestCase
     public static function provideOtherCases(): array
     {
         return [
-            [0],
-            [15],
+            [2],
+            [17],
             [100],
             [1000],
             [10000],
             [100000],
             [1000000],
-            [0.0],
-            [1.5],
+            [1.1],
+            [2.6],
             [10.0],
             [100.0],
             [1000.0],
