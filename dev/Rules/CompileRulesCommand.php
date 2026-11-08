@@ -22,7 +22,7 @@ final class CompileRulesCommand extends Command
         $progressBar = new ProgressBar($output);
 
         foreach ($progressBar->iterate(CldrData::rules()) as $locale => $rules) {
-            (new RuleCompiler($locale, $rules))->compile();
+            new RuleCompiler($locale, $rules)->compile();
         }
 
         $output->writeln('');
