@@ -33,8 +33,8 @@
         "php-standard-library/phpstan-extension": "^2.0",
         "phpstan/phpstan": "^2.3",
         "phpunit/phpunit": "^12.4",
-        "symfony/console": "^7.4",
-        "symfony/var-dumper": "^7.4"
+        "symfony/console": "^8.1",
+        "symfony/var-dumper": "^8.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
