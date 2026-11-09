@@ -28,6 +28,9 @@ final class OperandsTest extends TestCase
         $this->assertSame($t, t($source));
     }
 
+    /**
+     * @return Generator<int, array{string, float, int, int, int, int, int}>
+     */
     public static function provideOperandCases(): Generator
     {
         yield from [
