@@ -78,7 +78,7 @@ function t(string $number): int
  *
  * @internal
  */
-function c(string $number): int
+function c(string $_number): int
 {
     return 0;
 }

@@ -18,6 +18,9 @@ final class HelpersTest extends TestCase
         $this->assertSame($expected, H\studly(...$pieces));
     }
 
+    /**
+     * @return Generator<int, array{list<string>, string}>
+     */
     public static function provideStudlyCases(): Generator
     {
         yield from [
@@ -36,6 +39,9 @@ final class HelpersTest extends TestCase
         $this->assertSame($expected, H\camel(...$pieces));
     }
 
+    /**
+     * @return Generator<int, array{list<string>, string}>
+     */
     public static function provideCamelCases(): Generator
     {
         yield from [
