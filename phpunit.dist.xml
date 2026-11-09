@@ -5,8 +5,8 @@
     bootstrap="vendor/autoload.php"
     cacheDirectory=".cache/phpunit"
     colors="true"
-   	failOnAllIssues="true"
-	displayDetailsOnAllIssues="true"
+    failOnAllIssues="true"
+    displayDetailsOnAllIssues="true"
     beStrictAboutChangesToGlobalState="true"
     beStrictAboutOutputDuringTests="true"
 >
