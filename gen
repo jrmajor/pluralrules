@@ -11,9 +11,8 @@ new Provider()->register();
 
 $application = new Application('pluralrules locale data compiler');
 
-$application->addCommands([
-    new Dev\Rules\CompileRulesCommand(),
-    new Dev\Tests\CompileTestsCommand(),
-]);
+$commands = new Dev\CompileCommands();
+
+$application->addCommands([$commands->rules(...), $commands->tests(...)]);
 
 $application->run();
