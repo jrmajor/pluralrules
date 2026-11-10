@@ -22,7 +22,7 @@
     ],
     "homepage": "https://github.com/jrmajor/pluralrules",
     "require": {
-        "php": "8.4 - 8.5",
+        "php": "8.4 - 8.6",
         "ext-intl": "*"
     },
     "require-dev": {
