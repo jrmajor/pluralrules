@@ -16,7 +16,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use Psl\Str;
 use Psl\Vec;
 
-final class TestCompiler
+final readonly class TestCompiler
 {
     public function __construct(
         private string $locale,

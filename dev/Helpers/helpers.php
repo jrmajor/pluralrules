@@ -15,7 +15,7 @@ function studly(string ...$pieces): string
         ['-' => ' ', '_' => ' '],
     ), ' ');
 
-    $studlyWords = Vec\map($words, fn ($p) => ucfirst(Str\lowercase($p)));
+    $studlyWords = Vec\map($words, fn ($p) => Str\capitalize(Str\lowercase($p)));
 
     return Str\join($studlyWords, '');
 }
